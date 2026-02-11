@@ -6,13 +6,21 @@ import { MdCategory } from "react-icons/md";
 import { FiShoppingCart } from "react-icons/fi"; 
 import { HiOutlineUser } from "react-icons/hi"; 
 import { MdClose } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {  HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 function NavBar () {
 
     const [isOpen, setIsOpen] = useState(false);
     const [subMenu, setSubMenu] = useState (false);
+
+ useEffect(() => {
+    if (isOpen) {
+      document.body.classList.add("overflow-x-hidden");
+    } else {
+      document.body.classList.remove("overflow-x-hidden");
+    }
+  }, [isOpen]);
 
     function toggle () {
         if(!isOpen){
@@ -31,7 +39,7 @@ function NavBar () {
     }
 
    return (
-       <div className="relative bg-gray-300  md:flex md:gap-12 lg:gap-30">
+       <div className="relative bg-gray-300  md:flex md:gap-12 lg:gap-30 navBar">
             <div className="flex items-center justify-between px-4 py-1 sm:p-2 lg:pl-24">
                  <p className="relative text-orange-700 font-bold">
                     ElectroMart
@@ -56,9 +64,9 @@ function NavBar () {
 
             </div>
 
-                    <div className={`absolute md:static px-4 py-6 sm:px-24 md:px-0 flex flex-col md:flex-row 
+                   <div className={`fixed md:static px-4 py-6 sm:px-24 md:px-0 flex flex-col md:flex-row 
                                      md:justify-around md:items-center md:py-0 gap-3 w-full bg-gray-800 
-                                     md:bg-transparent text-gray-200/80 md:text-gray-600
+                                     md:bg-transparent text-gray-200/80 md:text-gray-600 
                                       transform transition-transform duration-300 
                                      ${isOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0
                                     `}>

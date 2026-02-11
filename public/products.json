@@ -10,7 +10,7 @@
     "category": "smartphones",
     "thumbnail": "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg",
     "images": [
-      "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg"
+      "/images/galaxySmartphone.jpg"
     ]
   },
   {
@@ -24,7 +24,7 @@
     "category": "smartphones",
     "thumbnail": "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg",
     "images": [
-      "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg"
+      "/images/iPhoneProMax.jpg"
     ]
   },
   {
@@ -38,7 +38,7 @@
     "category": "smartphones",
     "thumbnail": "https://images.pexels.com/photos/395207/pexels-photo-395207.jpeg",
     "images": [
-      "https://images.pexels.com/photos/395207/pexels-photo-395207.jpeg"
+      "/images/pixelSmartphone.jpg"
     ]
   },
 
@@ -53,7 +53,7 @@
     "category": "laptops",
     "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
     "images": [
-      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+      "/images/gamingLaptop.jpg"
     ]
   },
   {
@@ -67,7 +67,7 @@
     "category": "laptops",
     "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
     "images": [
-      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+      "/images/dellLaptop.jpg"
     ]
   },
   {
@@ -81,7 +81,7 @@
     "category": "laptops",
     "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
     "images": [
-      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+      "/images/studentLaptop.jpg"
     ]
   },
 
@@ -96,7 +96,7 @@
     "category": "headphones",
     "thumbnail": "https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg",
     "images": [
-      "https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg"
+      "/images/noiseCancellingHeadphones.jpg"
     ]
   },
   {
@@ -110,7 +110,7 @@
     "category": "headphones",
     "thumbnail": "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg",
     "images": [
-      "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg"
+      "/images/wirelessEarbuds.jpg"
     ]
   },
   {
@@ -124,7 +124,7 @@
     "category": "headphones",
     "thumbnail": "https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg",
     "images": [
-      "https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg"
+      "/images/studioHeadPhones.jpg"
     ]
   },
 
@@ -139,7 +139,7 @@
     "category": "accessories",
     "thumbnail": "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg",
     "images": [
-      "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg"
+      "/images/wirelessCharger.jpg"
     ]
   },
   {
@@ -153,7 +153,7 @@
     "category": "accessories",
     "thumbnail": "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg",
     "images": [
-      "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg"
+      "/images/bluetoothSpeaker.jpg"
     ]
   },
   {
@@ -167,7 +167,7 @@
     "category": "accessories",
     "thumbnail": "https://images.pexels.com/photos/722480/pexels-photo-722480.jpeg",
     "images": [
-      "https://images.pexels.com/photos/722480/pexels-photo-722480.jpeg"
+      "/images/usbCable.jpg"
     ]
   }
 ]
