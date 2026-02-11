@@ -31,9 +31,24 @@ function NavBar () {
     }
 
    return (
-       <div className="relative bg-gray-300 md:bg-gray-800 md:flex md:gap-12">
-            <div className="flex items-center justify-between p-3 sm:p-4">
-                 <p className="text-orange-700">ElectroMart</p>
+       <div className="relative bg-gray-300  md:flex md:gap-12 lg:gap-30">
+            <div className="flex items-center justify-between px-4 py-1 sm:p-2 lg:pl-24">
+                 <p className="relative text-orange-700 font-bold">
+                    ElectroMart
+                      <svg
+                            className="w-full"
+                            height="10"
+                            viewBox="0 0 200 20"
+                          >
+                            <path
+                            d="M5 5 Q100 -15 195 5"
+                            stroke="#f97316"
+                            strokeWidth="4"
+                            fill="none"
+                            strokeLinecap="round"
+                            />
+                        </svg>
+                </p>
 
                  <button onClick={toggle} className="md:hidden">
                     {isOpen ? <MdClose className="text-2xl"/> : <FaBars className="text-2xl"/>}
@@ -41,12 +56,14 @@ function NavBar () {
 
             </div>
 
-                    <div className={`absolute md:static px-4 py-8 sm:px-24 md:px-0 flex flex-col md:flex-row md:justify-around md:items-center md:py-3 gap-3 w-full bg-gray-800  text-gray-200/80
-                                      transform transition-transform duration-300
-                                     ${isOpen ? "translate-x-0" : "translate-x-full"}
+                    <div className={`absolute md:static px-4 py-6 sm:px-24 md:px-0 flex flex-col md:flex-row 
+                                     md:justify-around md:items-center md:py-0 gap-3 w-full bg-gray-800 
+                                     md:bg-transparent text-gray-200/80 md:text-gray-600
+                                      transform transition-transform duration-300 
+                                     ${isOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0
                                     `}>
 
-                    <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 pl-2">
+                    <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-10 pl-2">
                         <li className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0">
                             <AiFillHome className="md:hidden"/>
                             <Link to="/">Home</Link>
@@ -66,16 +83,16 @@ function NavBar () {
                             </div>
 
                             <div className="ml-auto" onClick={showSubMenu}>
-                                {subMenu ? <HiChevronUp className="text-2xl"/> : <HiChevronDown className="text-2xl"/>}
+                                {subMenu ? <HiChevronUp className="text-2xl cursor-pointer"/> : <HiChevronDown className="text-2xl cursor-pointer"/>}
                             </div>  
                         </div>
                      
                      {subMenu && 
-                        <div className="flex flex-col gap-2 pl-12 py-4 md:absolute md:pl-2">
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1">Smartphones</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1">Laptops</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1">Headphones</Link>
-                                    <Link className="text-center w-3/4">Acessories</Link>
+                        <div className="flex flex-col gap-2 pl-12 py-4 md:absolute md:justify-center md:bg-gray-300 md:py-3 md:px-5 md:top-12">
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full">Smartphones</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full">Laptops</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full">Headphones</Link>
+                                    <Link className="text-center w-3/4 md:w-full">Acessories</Link>
                         </div>
                       }
                                              
@@ -88,12 +105,12 @@ function NavBar () {
 
                     </ul>
 
-                    <div className="flex flex-col gap-3 pl-2 md:gap-6 md:flex-row md:items-center md:justify-between">
+                    <div className="flex flex-col gap-3 pl-2 md:gap-6 lg:gap-12 md:flex-row md:items-center md:justify-between">
                          <Link className="flex items-center  gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0">
                          <HiOutlineUser className="md:hidden"/>
                            Login
                          </Link>
-                        <button className="bg-orange-700 rounded w-1/2 md:w-full mt-7 md:mt-0 self-center text-gray-200/80 p-1">Create Account</button>
+                        <button className="bg-orange-700 rounded w-1/2 md:w-full mt-7 md:mt-0 self-center text-gray-200/80 p-1 cursor-pointer">Create Account</button>
                     </div>
             </div>
 
