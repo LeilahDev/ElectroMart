@@ -1,0 +1,173 @@
+[
+  {
+    "id": 1,
+    "title": "Galaxy Smartphone",
+    "description": "High-performance Android smartphone with stunning display.",
+    "price": 28000,
+    "rating": 4.5,
+    "stock": 15,
+    "brand": "Samsung",
+    "category": "smartphones",
+    "thumbnail": "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "iPhone Pro Max",
+    "description": "Latest Apple iPhone with exceptional performance and camera.",
+    "price": 75000,
+    "rating": 4.8,
+    "stock": 10,
+    "brand": "Apple",
+    "category": "smartphones",
+    "thumbnail": "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Pixel Smartphone",
+    "description": "Google Pixel smartphone with excellent camera and software.",
+    "price": 42000,
+    "rating": 4.4,
+    "stock": 12,
+    "brand": "Google",
+    "category": "smartphones",
+    "thumbnail": "https://images.pexels.com/photos/395207/pexels-photo-395207.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/395207/pexels-photo-395207.jpeg"
+    ]
+  },
+
+  {
+    "id": 4,
+    "title": "Gaming Laptop Pro",
+    "description": "High-end gaming laptop with powerful GPU and cooling system.",
+    "price": 130000,
+    "rating": 4.7,
+    "stock": 8,
+    "brand": "ASUS",
+    "category": "laptops",
+    "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
+    "images": [
+      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Ultrabook Laptop",
+    "description": "Slim ultrabook laptop ideal for office and travel.",
+    "price": 99000,
+    "rating": 4.6,
+    "stock": 10,
+    "brand": "Dell",
+    "category": "laptops",
+    "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
+    "images": [
+      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Student Laptop",
+    "description": "Reliable laptop suitable for study and everyday tasks.",
+    "price": 65000,
+    "rating": 4.3,
+    "stock": 18,
+    "brand": "HP",
+    "category": "laptops",
+    "thumbnail": "https://images.pexels.com/photos/18105/pexels-photo.jpg",
+    "images": [
+      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
+    ]
+  },
+
+  {
+    "id": 7,
+    "title": "Noise Cancelling Headphones",
+    "description": "Comfortable wireless headphones with noise cancellation.",
+    "price": 8500,
+    "rating": 4.5,
+    "stock": 25,
+    "brand": "Sony",
+    "category": "headphones",
+    "thumbnail": "https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/267394/pexels-photo-267394.jpeg"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Wireless Earbuds",
+    "description": "Compact wireless earbuds with long battery life.",
+    "price": 5500,
+    "rating": 4.2,
+    "stock": 30,
+    "brand": "JBL",
+    "category": "headphones",
+    "thumbnail": "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Studio Headphones",
+    "description": "Professional headphones designed for studio monitoring.",
+    "price": 12500,
+    "rating": 4.7,
+    "stock": 14,
+    "brand": "Audio-Technica",
+    "category": "headphones",
+    "thumbnail": "https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg"
+    ]
+  },
+
+  {
+    "id": 10,
+    "title": "Wireless Charger",
+    "description": "Fast wireless charger compatible with all Qi devices.",
+    "price": 2200,
+    "rating": 4.3,
+    "stock": 40,
+    "brand": "Anker",
+    "category": "accessories",
+    "thumbnail": "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/607812/pexels-photo-607812.jpeg"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Bluetooth Speaker",
+    "description": "Portable Bluetooth speaker with high-quality sound.",
+    "price": 3600,
+    "rating": 4.4,
+    "stock": 22,
+    "brand": "JBL",
+    "category": "accessories",
+    "thumbnail": "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/3394665/pexels-photo-3394665.jpeg"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "USB-C Cable Pack",
+    "description": "Durable USB-C cables for fast charging and data sync.",
+    "price": 800,
+    "rating": 4.1,
+    "stock": 50,
+    "brand": "Ugreen",
+    "category": "accessories",
+    "thumbnail": "https://images.pexels.com/photos/722480/pexels-photo-722480.jpeg",
+    "images": [
+      "https://images.pexels.com/photos/722480/pexels-photo-722480.jpeg"
+    ]
+  }
+]
