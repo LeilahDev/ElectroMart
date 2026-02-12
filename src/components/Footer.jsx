@@ -4,7 +4,7 @@ function Footer () {
   return (
 
     <>
-    <div className="bg-gray-800 text-gray-200/80 mt-10 py-8 px-6 md:grid md:grid-cols-2 md:gap-4 lg:grid lg:grid-cols-5 lg:gap-10"> 
+    <div className="bg-gray-800 text-gray-200/80  py-8 px-6 md:grid md:grid-cols-2 md:gap-4 lg:grid lg:grid-cols-5 lg:gap-10"> 
         <div className="mb-4">
             <h2 className="text-base  mb-2 text-orange-800">About ElectroMart</h2>
              <p>ElectroMart – Your one-stop shop for smartphones, laptops, headphones, and accessories.
