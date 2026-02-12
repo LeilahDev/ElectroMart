@@ -41,10 +41,10 @@ function ProductsCard () {
     
         return (
             <>
-             <div className="grid grid-cols-1 gap-6 p-3">
+             <div className="grid grid-cols-1 gap-6 p-3 sm:grid-cols-2 md:grid-cols-4 md:p-1 md:gap-3 lg:gap-12">
 
               {visibleProducts.map ((product) => 
-                  <div key = {product.id}  className="bg-gray-300 p-1 pb-3 rounded">
+                  <div key = {product.id}  className="bg-gray-300 p-1 sm:p-2 pb-3 rounded md:p-1">
                     <img src={product.images} alt=""
                      className="w-full h-40 object-cover pb-3 rounded"
                     />
@@ -54,14 +54,17 @@ function ProductsCard () {
 
                      <div className="mt-3 flex justify-between px-2">
                         <p  className="bg-gray-300 p-1 rounded text-gray-700"><FaEye/></p>
-                        <p className="bg-gray-400 p-1 rounded text-gray-700"><FiShoppingCart  /></p> 
+                        <p className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700"><FiShoppingCart  /></p> 
                      </div>
 
                   </div> 
             )}
              </div>
 
-            {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full p-2 mt-3 cursor-pointer'>View More</button>}
+             <div className='md:flex md:justify-center md:mt-5'>
+                 {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer'>View More</button>}
+             </div>
+           
            
             </>
         )

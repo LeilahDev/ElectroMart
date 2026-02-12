@@ -39,7 +39,7 @@ function NavBar () {
     }
 
    return (
-       <div className="relative bg-gray-300  md:flex md:gap-12 lg:gap-30 navBar">
+       <div className="relative bg-gray-300 md:bg-gray-800  md:flex md:gap-12 lg:gap-30 navBar lg:p-1">
             <div className="flex items-center justify-between px-4 py-1 sm:p-2 lg:pl-24">
                  <p className="relative text-orange-700 font-bold">
                     ElectroMart
@@ -71,7 +71,7 @@ function NavBar () {
                                      ${isOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0
                                     `}>
 
-                    <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-10 pl-2">
+                    <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 lg:gap-10  pl-2 md:text-gray-200/80">
                         <li className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0">
                             <AiFillHome className="md:hidden"/>
                             <Link to="/">Home</Link>
@@ -113,7 +113,7 @@ function NavBar () {
 
                     </ul>
 
-                    <div className="flex flex-col gap-3 pl-2 md:gap-6 lg:gap-12 md:flex-row md:items-center md:justify-between">
+                    <div className="flex flex-col gap-3 pl-2 md:gap-6 lg:gap-12 md:flex-row md:items-center md:justify-between md:text-gray-200/80">
                          <Link className="flex items-center  gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0">
                          <HiOutlineUser className="md:hidden"/>
                            Login
