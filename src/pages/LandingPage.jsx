@@ -43,11 +43,11 @@ function LandingPage () {
                    md:order-1 md:mt-0 md:col-span-3 md:p-5 lg:col-span-2
          
          ">
-            <p className="text-xs lg:text-base  text-gray-700">Your Trusted Electronics Store</p>
+            <p className="text-xs lg:text-base   text-orange-700">Your Trusted Electronics Store</p>
             <h1 className="text-2xl lg:text-5xl text-center py-2 font-semibold text-gray-800 md:text-start">Smart Electronics for Everyday Life</h1>
             <p className="text-sm lg:text-2xl text-center text-gray-700 md:text-start">Shop phones, laptops, and accessories at affordable prices with fast and reliable delivery.</p>
             <button className="bg-orange-700 rounded w-1/2 mt-5 md:self-start  
-                self-center text-gray-200/80 p-1 cursor-pointer lg:mt-8 lg:w-1/4 lg:p-2">Start Shopping</button>
+                self-center text-gray-200/80 p-1 cursor-pointer lg:mt-8 lg:w-1/4 lg:p-2 hover:bg-gray-800">Start Shopping</button>
          </div>
        </div>
 
@@ -125,9 +125,9 @@ function LandingPage () {
        
             
 
-            <div className="mt-8 sm:flex sm:gap-5  m-auto px-5 md:px-8 lg:mt-12 lg:px-16 lg:grid lg:grid-cols-4 lg:gap-0  lg:items-center">
-              <div className="lg:col-span-2 lg:flex lg:justify-center sm:w-1/2">
-                <img src={whyUs} className="sm:w-full pb-4 lg:w-3/4 lg:h-75 lg:px-1 lg:pb-0 "/>
+            <div className="mt-8 sm:flex sm:gap-5  m-auto px-5 md:px-8 lg:mt-12 lg:px-16 lg:grid lg:grid-cols-4 lg:gap-10  lg:items-center">
+              <div className="lg:col-span-2 lg:flex lg:justify-center lg:w-full sm:w-1/2">
+                <img src={whyUs} className="sm:w-full pb-4  lg:h-75 lg:px-1 lg:pb-0 "/>
               </div>
 
                 <div className="text-center lg:text-start lg:col-span-2 lg:h-full lg:pt-14">
@@ -142,7 +142,7 @@ function LandingPage () {
        <div className="flex flex-col bg-gray-300 mt-8 rounded pb-5">
             <h1 className="text-2xl font-semibold text-gray-800 p-5 text-center lg:text-5xl">Ready to upgrade your tech?</h1>
             <p className="text-gray-800 text-center lg:text-lg">Browse our collections and find the perfect device for your needs</p>
-            <button className="bg-orange-700 px-5 self-center mt-3 py-1 rounded text-gray-200/80">Browse All</button>
+            <button className="bg-orange-700 px-5 self-center mt-3 py-1 rounded text-gray-200/80 hover:bg-gray-800 cursor-pointer">Browse All</button>
        </div>
     </div>
   )

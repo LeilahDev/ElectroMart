@@ -62,7 +62,7 @@ function ProductsCard () {
              </div>
 
              <div className='md:flex md:justify-center md:mt-5'>
-                 {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer'>View More</button>}
+                 {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800'>View More</button>}
              </div>
            
            
