@@ -1,10 +1,12 @@
 import  {useState , useEffect } from 'react'
 import { FiShoppingCart } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
+import { useContext } from 'react';
+import {ProductsContext} from '../App.jsx'
 
 function ProductsCard () {
-    
-        const [products , setProducts] = useState([]);
+       const {products, setProducts} = useContext(ProductsContext);
+
         const [errorMessage , setErrorMessage] = useState(null);
         const [visibleCount , setVisibleCount] = useState (4);
 
@@ -26,7 +28,7 @@ function ProductsCard () {
                             throw new Error ("Something went wrong")
                         }
                         
-                        setProducts (data);
+                          setProducts (data);
                    } catch{
                             if(error instanceof TypeError){
                                 setErrorMessage ("Network error: Check Your internet connection")
@@ -35,9 +37,9 @@ function ProductsCard () {
                             }
                    }
              }
-    
              productsArray ();
         }, [])
+        localStorage.setItem ('products', JSON.stringify (products));
     
         return (
             <>

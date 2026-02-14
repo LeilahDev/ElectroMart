@@ -39,7 +39,7 @@ function NavBar () {
     }
 
    return (
-       <div className="relative bg-gray-300 md:bg-gray-800  md:flex md:gap-12 lg:gap-30 navBar lg:p-1">
+       <div className="relative bg-gray-300 md:bg-gray-800  md:flex md:gap-12 lg:gap-30 navBar lg:p-1 z-200">
             <div className="flex items-center justify-between px-4 py-1 sm:p-2 lg:pl-24">
                  <p className="relative text-orange-700 font-bold">
                     ElectroMart

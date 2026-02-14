@@ -1,30 +1,43 @@
 import SearchSection from "../components/SearchSection"
-import studioHeadPhones from '../assets/studioHeadPhones.jpg'
+import studioHeadPhones from '../assets/studioHeadPhones.png'
 import { FaChevronDown } from "react-icons/fa";
 import ProductsCard from '../components/ProductsCard' 
+import ProductsCategory from "../components/ProductsCategory";
 
  function ProductsPage () {
+
      return (
         <>
            <SearchSection />
 
-           <div className="relative p-4 flex flex-col items-center justify-center">
-                <div className="absolute z-10 text-white text-center">
-                    <h1 className="text-2xl">Shop Electronics</h1>
-                    <p>Browse phones, laptops, and accessories</p>
-                    <p className="bg-gray-400 w-8 m-auto mt-5 p-2 rounded-full flex justify-center items-center"><FaChevronDown /></p> 
-                </div>
+           <div className="lg:flex lg:pl-10 lg:gap-22">
+                <ProductsCategory />
 
-                <div className="rounded relative">
-                     <div className="absolute inset-0 bg-black/70 rounded-lg"></div>
-                    <img src={studioHeadPhones} className="rounded"/>                  
-                </div>
-           </div>
+                <div>
+                            <div className="flex flex-col justify-center items-center md:flex-row">
+                            <div className="w-3/4 md:order-2 lg:flex lg:justify-center">
+                                <img src={studioHeadPhones} />                  
+                            </div>
 
-           <div className="p-4">
-                <h2 className="text-lg font-semibold text-gray-800 lg:text-2xl text-center lg:mb-8">Find Your Best Device</h2>
-                <ProductsCard />
-           </div>
+                            <div className="text-center bg-gray-300 px-2 py-3 md:py-4 text-gray-700
+                                rounded sm:w-3/4 md:order-1 md:w-1/2  md:relative md:left-20 z-20
+                                lg:w-1/4 lg:left-50 
+                                ">
+                                <h1 className="text-2xl text-gray-800">Shop Electronics</h1>
+                                <p>Browse phones, laptops,headphones and accessories </p>
+                                <p className="bg-gray-400 w-8 m-auto mt-5 p-2 rounded-full flex justify-center items-center"><FaChevronDown /></p> 
+                            </div>
+                    </div>
+
+                            <div className="p-4 mt-7 md:px-5 lg:px-34">
+                                    <h1 className="text-lg md:text-2xl md:mb-4 font-semibold text-gray-800 lg:text-2xl text-center lg:mb-8">Find Your Best Device</h1>
+                                    <ProductsCard />
+                            </div>
+                </div>
+                
+
+        </div>
+
         </>
      )
  }
