@@ -8,8 +8,9 @@ import laptop from "../assets/laptop.jpg"
 import smartphone from "../assets/smartphone.jpg"
 import headphone from "../assets/headphone.jpg"
 import assesories from "../assets/assesories.jpg"
-import { useState } from "react";
-
+import { useContext, useRef, useState , useEffect } from "react";
+import { ProductsContext } from "../App.jsx";
+import { Link } from "react-router-dom"
 
 function LandingPage () {
 
@@ -18,6 +19,10 @@ function LandingPage () {
   
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState("next");
+
+  const sectionRef = useRef (null);
+
+  const {closeNavBar} = useContext(ProductsContext);
 
   function previous () {
        if(activeIndex < images.length && activeIndex > 0){
@@ -33,6 +38,19 @@ function LandingPage () {
        }
   }
 
+  function handleScroll () {
+     sectionRef.current.scrollIntoView ({
+       behavior: "smooth"
+     })
+  }
+    useEffect(() => {
+      window.addEventListener("scroll", closeNavBar);
+
+      return () => {
+        window.removeEventListener("scroll", closeNavBar);
+      };
+    }, [closeNavBar]);
+
   return (
     <div className="bg-gray-200 p-5 sm:px-8 md:p-8 md:px-12">
        <div className="md:grid md:grid-cols-5 md:gap-8  md:mt-8 md:justify-around md:p-5 lg:mt-20 lg:grid-cols-4">
@@ -47,7 +65,8 @@ function LandingPage () {
             <h1 className="text-2xl lg:text-5xl text-center py-2 font-semibold text-gray-800 md:text-start">Smart Electronics for Everyday Life</h1>
             <p className="text-sm lg:text-2xl text-center text-gray-700 md:text-start">Shop phones, laptops, and accessories at affordable prices with fast and reliable delivery.</p>
             <button className="bg-orange-700 rounded w-1/2 mt-5 md:self-start  
-                self-center text-gray-200/80 p-1 cursor-pointer lg:mt-8 lg:w-1/4 lg:p-2 hover:bg-gray-800">Start Shopping</button>
+                self-center text-gray-200/80 p-1 cursor-pointer lg:mt-8 lg:w-1/4 lg:p-2 hover:bg-gray-800"
+                onClick={handleScroll}>Start Shopping</button>
          </div>
        </div>
 
@@ -114,16 +133,13 @@ function LandingPage () {
        </div>
 
 
-       <div className="mt-6 py-3 md:px-5 lg:mt-8 lg:px-20">
-          <h2 className="text-lg font-semibold text-gray-800 lg:text-2xl lg:text-center lg:mb-8">Featured Products</h2>
+       <div ref= {sectionRef} className="mt-6 py-3 md:px-5 lg:mt-8 lg:px-20">
+          <h2  className="text-lg font-semibold text-gray-800 lg:text-2xl lg:text-center lg:mb-8">Featured Products</h2>
           <div className="mt-4">
                  <ProductsCard />
           </div>
           
        </div>
-
-       
-            
 
             <div className="mt-8 sm:flex sm:gap-5  m-auto px-5 md:px-8 lg:mt-12 lg:px-16 lg:grid lg:grid-cols-4 lg:gap-10  lg:items-center">
               <div className="lg:col-span-2 lg:flex lg:justify-center lg:w-full sm:w-1/2">
@@ -142,7 +158,7 @@ function LandingPage () {
        <div className="flex flex-col bg-gray-300 mt-8 rounded pb-5">
             <h1 className="text-2xl font-semibold text-gray-800 p-5 text-center lg:text-5xl">Ready to upgrade your tech?</h1>
             <p className="text-gray-800 text-center lg:text-lg">Browse our collections and find the perfect device for your needs</p>
-            <button className="bg-orange-700 px-5 self-center mt-3 py-1 rounded text-gray-200/80 hover:bg-gray-800 cursor-pointer">Browse All</button>
+          <button className="bg-orange-700 px-5 self-center mt-3 py-1 rounded text-gray-200/80 hover:bg-gray-800 cursor-pointer"> <Link to ="/products">Browse All</Link> </button>
        </div>
     </div>
   )

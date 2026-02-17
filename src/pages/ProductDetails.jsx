@@ -1,13 +1,21 @@
 import { useParams } from 'react-router-dom';
 import SearchSection from '../components/SearchSection.jsx'
 import { FiShoppingCart } from "react-icons/fi";
-import { useContext, useState } from 'react';
+import { FaEye } from "react-icons/fa";
+import { useContext, useState , useRef , useEffect } from 'react';
 import { ProductsContext } from '../App.jsx';
+import {Link} from 'react-router-dom';
+
 
 function ProductDetails () {
+
+    const {count, increase , decrease, cartProducts,  setCartProducts ,products } = useContext(ProductsContext)
+    
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
-      const [count , setCount] = useState (1);
+      const sectionRef = useRef (null);
+      const [successMesage , setSuccessMessage] = useState(false);
+     
 
       const {id} = useParams();
 
@@ -15,17 +23,14 @@ function ProductDetails () {
         localStorage.getItem('products')
        ) || [];
 
-         function increase () {
-            setCount(count + 1);
-         }
+       const productCategory = savedproducts[id-1].category
+       const currentProduct = savedproducts[id-1].title
 
-         function decrease () {
-            if(count === 1){
-                setCount (1);
-            }else{
-                setCount (count - 1);
-            }
-         }
+       const productsArray = savedproducts.filter ((item) => {
+             if(currentProduct !== item.title && productCategory === item.category) {
+                return item
+             }
+       }) ;
 
          function description () {
             if(!collapse1) {
@@ -46,50 +51,128 @@ function ProductDetails () {
             }
          }
 
+           function handleScroll () {
+                sectionRef.current.scrollIntoView ({
+                behavior: "smooth"
+                })
+            }
+
+
+            function addToCart(productId) {
+            const updatedCart = [...cartProducts, products[productId - 1]];
+            setCartProducts(updatedCart);
+
+            localStorage.setItem(
+                'cartProducts',
+                JSON.stringify(updatedCart)
+            ) || [];
+            }
+
+            function handleClick (productId) {
+                    addToCart (productId);
+                    setSuccessMessage(true);
+            }
+
+             useEffect (() => {
+
+                if(successMesage) {
+                const timer = setTimeout(() => {
+                          setSuccessMessage(false)
+                        }, 2000)
+
+                    return () => clearTimeout(timer);
+                }
+
+             }, [successMesage])
+
     return (
         <>
               <SearchSection />
-              <div className='p-8'>
-                  <img src={savedproducts[id-1].images} alt="" className='h-60 rounded w-full object-cover' />
-                  <h1 className='text-lg mt-5'>{savedproducts[id-1].title}</h1>
-                  <p className='text-xs mb-2 mt-2'>Brand: {savedproducts[id-1].brand}</p>
-                  <p className='border-b py-2 mb-4'>Ksh. {savedproducts[id-1].price}</p>
-                  
+
+        <div ref= {sectionRef} className='relative p-8 sm:grid sm:grid-cols-3 sm:gap-4 md:px-15 md:gap-8 md:grid-cols-4 lg:px-50'>
+
+                <div className='sm:col-span-1  md:col-span-2'>
+                     <img src={savedproducts[id-1].images} alt="" className='h-60 rounded w-full object-cover sm:h-80' />
+                </div>
                  
-                     <p onClick={description}>+ Description</p>
-                      {collapse1 && 
-                        <p>{savedproducts[id-1].description}</p>
-                      }
-                    
-                    <div className='border-b border-t pb-4 mb-4 mt-4 pt-4'>
-                            <p  onClick={specification}>+ Specification</p>
+                 <div className='sm:col-span-2 md:col-span-2'>
+                        <h1 className='mt-5 text-lg font-semibold text-gray-800'>{savedproducts[id-1].title}</h1>
+                            <p className='text-xs mb-2 mt-2 text-gray-700'>Brand: {savedproducts[id-1].brand}</p>
+                            <p className='border-b py-2 mb-4 border-gray-500/50 text-gray-700'>Ksh. {savedproducts[id-1].price}</p>
+                            
+                            
+                                <p className='text-gray-700 cursor-pointer' onClick={description}>+ Description</p>
+                                {collapse1 && 
+                                    <p className='text-gray-700 pl-4 pt-1 text-sm'>{savedproducts[id-1].description}</p>
+                                }
+                                
+                                <div className='border-b border-t pb-4 mb-4 mt-4 pt-4 border-gray-500/50 text-gray-700 cursor-pointer'>
+                                        <p  onClick={specification}>+ Specification</p>
 
-                            {collapse2 && 
-                                        <div>
-                                                <p>Battery</p>
-                                                <p>Connectivity</p>
-                                        </div>
-                            }
-                    </div>
+                                        {collapse2 && 
+                                                    <div className='text-gray-700 px-4 pt-1 text-sm flex justify-between'>
+                                                            <p>Battery</p>
+                                                            <p>Connectivity</p>
+                                                    </div>
+                                        }
+                                </div>
 
 
- 
-                  <div className='text-xs bg-gray-300 w-1/4 py-1 text-center rounded'>
-                       <p>{savedproducts[id-1].stock} in stock</p>
-                  </div>
+            
+                            <div className='text-xs bg-gray-300 w-1/4 py-1 text-center rounded '>
+                                <p className='text-gray-800'>{savedproducts[id-1].stock} in stock</p>
+                            </div>
 
 
-                 <div className='flex justify-between mt-4'>
-                     <div className='flex border justify-around w-1/4 items-center'>
-                        <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={decrease}>-</p>
-                        <p>{count}</p>
-                        <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
+                            <div className='flex justify-between mt-4 '>
+                                <div className='flex border justify-around w-1/4 items-center border-gray-500/50 rounded'>
+                                    <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={decrease}>-</p>
+                                    <p>{count}</p>
+                                    <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
+                                </div>
+
+                                <button onClick={() => handleClick (savedproducts[id-1].id)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300'>Add to cart</button>
+                            </div>
+                 </div>
+              </div>
+
+              <div className='mb-8 px-10 md:px-15 lg:px-50 lg:mt-12'>
+                 <h1 className=' mb-4 mt-5 text-lg font-semibold text-gray-800 lg:text-center lg:text-2xl lg:mb-8'>Related Products</h1>
+
+             <div className="grid grid-cols-1 gap-8 p-3 sm:grid-cols-2 md:grid-cols-4 md:p-1 md:gap-3 lg:gap-12">
+
+              {productsArray.map ((product) => 
+                  <div key = {product.id}  className="bg-gray-300 p-1 sm:p-2 pb-3 rounded md:p-1">
+                    <img src={product.images} alt=""
+                     className="w-full h-40 object-cover pb-3 rounded"
+                    />
+                    <p className="text-orange-700 text-xs pl-2">{product.brand}</p>
+                     <h3 className="text-gray-700 pl-2">{product.title}</h3>
+                     <p className="text-orange-800 pl-2">${product.price}</p>
+
+                     <div className="mt-3 flex justify-between px-2">
+                        <p onClick={handleScroll}  className="bg-gray-300 p-1 rounded text-gray-700"><Link to={`/products/${product.id}`}><FaEye/></Link></p>
+                        <p onClick={() => handleClick (product.id)} className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700"><FiShoppingCart  /></p> 
                      </div>
 
-                    <button className='bg-orange-700 w-1/2 p-1 rounded'>Add to cart</button>
-                 </div>
+                  </div> 
+            )}
 
-              </div>
+                <p className={`
+                    fixed top-2 left-3 right-3 z-50
+                    bg-green-300 text-gray-600 p-3 rounded shadow-md
+                    
+                    transition-all duration-500 ease-in-out
+                    
+                    ${successMesage 
+                        ? "opacity-100 translate-y-0" 
+                        : "opacity-0 -translate-y-5"}
+                    `}>
+                    Product Added successfully
+                </p>
+
+             </div>
+        </div> 
         </>
     )
 }

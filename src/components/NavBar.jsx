@@ -6,12 +6,12 @@ import { MdCategory } from "react-icons/md";
 import { FiShoppingCart } from "react-icons/fi"; 
 import { HiOutlineUser } from "react-icons/hi"; 
 import { MdClose } from "react-icons/md";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {  HiChevronDown, HiChevronUp } from "react-icons/hi";
+import { ProductsContext } from "../App.jsx";
 
 function NavBar () {
-
-    const [isOpen, setIsOpen] = useState(false);
+    const {isOpen , setIsOpen} = useContext (ProductsContext)
     const [subMenu, setSubMenu] = useState (false);
 
  useEffect(() => {
@@ -68,7 +68,7 @@ function NavBar () {
                                      md:justify-around md:items-center md:py-0 gap-3 w-full bg-gray-800 
                                      md:bg-transparent text-gray-200/80 md:text-gray-600 
                                       transform transition-transform duration-300 
-                                     ${isOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0
+                                      ${isOpen ? "translate-x-0" : "translate-x-full"} md:translate-x-0
                                     `}>
 
                     <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 lg:gap-10  pl-2 md:text-gray-200/80">

@@ -15,11 +15,35 @@ const ProductsContext = createContext ();
 function App () {
      
     const [products , setProducts] = useState([]);
-  
+    const [count , setCount] = useState (1);
+    const [cartProducts , setCartProducts] = useState ([]);
+    const [isOpen, setIsOpen] = useState(false);
+    
+
+         function increase () {
+            setCount(count + 1);
+         }
+
+         function decrease () {
+            if(count === 1){
+                setCount (1);
+            }else{
+                setCount (count - 1);
+            }
+         }
+
+         function closeNavBar () {
+            setIsOpen (false)
+         }
+   
+
    return <>
 
-         <NavBar />
-         <ProductsContext.Provider value = {{products, setProducts}}>
+         
+         <ProductsContext.Provider value = {{products, setProducts , count, setCount , increase , decrease , 
+                                             cartProducts ,setCartProducts , isOpen ,setIsOpen ,closeNavBar,
+                                             }}>
+          <NavBar />
           <Routes>
                  <Route path='/' element ={<LandingPage />}/>
                  <Route path='/products' element = { <ProductsPage />}/>

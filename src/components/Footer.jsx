@@ -10,7 +10,7 @@ function Footer () {
              <p>ElectroMart – Your one-stop shop for smartphones, laptops, headphones, and accessories.
                Providing the latest tech products with fast delivery and great prices.
              </p>
-        </div>
+        </div> 
 
         <div className="mb-4">
             <h2 className="text-base mb-2 text-orange-800">Quick Links</h2>
