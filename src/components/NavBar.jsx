@@ -11,7 +11,7 @@ import {  HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { ProductsContext } from "../App.jsx";
 
 function NavBar () {
-    const {isOpen , setIsOpen} = useContext (ProductsContext)
+    const {isOpen , setIsOpen , closeNavBar} = useContext (ProductsContext)
     const [subMenu, setSubMenu] = useState (false);
 
  useEffect(() => {
@@ -72,17 +72,17 @@ function NavBar () {
                                     `}>
 
                     <ul className="flex flex-col md:flex-row md:justify-center md:items-center gap-2 md:gap-5 lg:gap-10  pl-2 md:text-gray-200/80">
-                        <li className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
+                        <li onClick={closeNavBar} className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
                             <AiFillHome className="md:hidden"/>
                             <Link to="/">Home</Link>
                         </li>
 
-                        <li className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
+                        <li onClick={closeNavBar} className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
                             <FaShopify className="md:hidden"/>
                             <Link to="/products">Shop</Link>
                         </li>
 
-                        <li className="border-b border-gray-500/50 pb-2 md:border-none md:pb-0 hover:text-orange-700">
+                        <li  className="border-b border-gray-500/50 pb-2 md:border-none md:pb-0 hover:text-orange-700">
 
                         <div className="flex items-center gap-2 md:gap-4">
                             <div className="flex justify-between items-center gap-4">
@@ -97,16 +97,16 @@ function NavBar () {
                      
                      {subMenu && 
                         <div className="flex flex-col gap-2 pl-12 py-4 md:absolute md:justify-center md:bg-gray-800 md:py-3 md:px-5 md:top-12 md:text-gray-200/80">
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700">Smartphones</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700">Laptops</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700">Headphones</Link>
-                                    <Link className="text-center w-3/4 md:w-full hover:text-orange-700">Acessories</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Smartphones</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Laptops</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Headphones</Link>
+                                    <Link className="text-center w-3/4 md:w-full hover:text-orange-700" onClick={closeNavBar}>Acessories</Link>
                         </div>
                       }
                                              
                         </li>
 
-                        <li className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
+                        <li onClick={closeNavBar} className="flex items-center gap-4 sm:gap-8 border-b md:border-none border-gray-500/50 pb-2 md:pb-0 hover:text-orange-700">
                             <FiShoppingCart className="md:hidden"/>
                             <Link to="/cart">Cart</Link>
                         </li>

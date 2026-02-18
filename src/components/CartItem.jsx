@@ -16,11 +16,11 @@ import { Link } from "react-router-dom"
 
                const counted = cartProducts.reduce ((acc , product) => {
                          if(acc[product.id]) {
-                           acc[product.id].quantity += 1;
+                           acc[product.id].quantity += product.quantity || 1;
                          } else {
                            acc[product.id] = {
                               ...product,
-                               quantity: 1
+                               quantity: product.quantity || 1
                            }
                          }
 
@@ -30,18 +30,38 @@ import { Link } from "react-router-dom"
                 return Object.values(counted);
        })
 
-       useEffect (() => {
+          function handleDelete(productId) {
+            setProductsArray(prev => {
+               const updatedProducts = prev.filter(
+                  item => item.id !== productId
+               );
+
+               return updatedProducts;
+            });
+            }
+
+      useEffect (() => {
             localStorage.setItem ('cartProducts', JSON.stringify (productsArray))
        }, [productsArray])
 
-       function handleDelete (productId) {
-                 setProductsArray(prev =>
-                  prev.filter(item => item.id !== productId)
-               );
-       }
+
+       const [total , setTotal] = useState(0);
+
+       useEffect(()=>{
+         
+         let subTotal = 0;
+          productsArray.forEach ((item) =>{
+            subTotal += item.quantity * item.price ;
+          })
+
+          setTotal(subTotal)
+       },[productsArray])
+
+       console.log(total)
 
      return (
         <>
+
             {productsArray.length === 0  
                  ?(
                      <div className="bg-gray-300 m-6 py-10 flex flex-col items-center px-4 text-center rounded">
@@ -54,17 +74,33 @@ import { Link } from "react-router-dom"
                      </div>
                 )
                 : (
-                     <div>
-                    <p>Cart ({productsArray.length})</p>
-                    {productsArray.map(product => <SingleCartItem key={product.id} product= {product} handleDelete = {handleDelete}/>)}
-                </div>
+                  <div> 
+                        <div className="px-3 mb-3">
+                              <p className="px-4 py-1 bg-gray-300 mt-5 flex items-center">
+                                    <span className="border-b border-gray-400 w-full pb-2 pt-1" >Cart ({productsArray.length})</span>
+                                 </p>
+                              <div className="flex flex-col">
+                                       {productsArray.map(product => <SingleCartItem key={product.id} product= {product} handleDelete = {handleDelete} productsArray = {productsArray} setProductsArray = {setProductsArray}/>)}
+                              </div>
+                  
+                      </div>
+
+                          <div className="py-2 px-6 bg-gray-300 ml-3 mr-3 mb-3 rounded">
+                                 <h1 className="border-b border-white py-2">CART SUMMARY</h1>
+                                 <p className="border-b border-white py-2 flex justify-between">
+                                    <span>Subtotal </span>
+                                    <span>Ksh. {total}</span>
+                                 </p>
+                                 <button className="bg-orange-700 py-1 px-5 w-full mt-2 rounded text-gray-300 border-b border-white">CheckOut</button>
+                          </div>
+
+
+                  </div>
+
                 ) 
                 
             }
-
-            
-
-
+           
         </>
      )
  }

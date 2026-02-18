@@ -9,14 +9,13 @@ import {Link} from 'react-router-dom';
 
 function ProductDetails () {
 
-    const {count, increase , decrease, cartProducts,  setCartProducts ,products } = useContext(ProductsContext)
+    const {count,setCount, increase , decrease, cartProducts,  setCartProducts } = useContext(ProductsContext)
     
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
       const sectionRef = useRef (null);
       const [successMesage , setSuccessMessage] = useState(false);
      
-
       const {id} = useParams();
 
       const savedproducts = JSON.parse(
@@ -59,19 +58,18 @@ function ProductDetails () {
 
 
             function addToCart(productId) {
-            const updatedCart = [...cartProducts, products[productId - 1]];
-            setCartProducts(updatedCart);
-
-            localStorage.setItem(
-                'cartProducts',
-                JSON.stringify(updatedCart)
-            ) || [];
+                setCartProducts(prev => [
+                    ...prev,
+                    { ...savedproducts[productId], quantity: count }
+                    ]);
+                
+                     setSuccessMessage(true);
+                     setCount(1)
             }
 
-            function handleClick (productId) {
-                    addToCart (productId);
-                    setSuccessMessage(true);
-            }
+            useEffect (() => {
+                localStorage.setItem('cartProducts' , JSON.stringify(cartProducts));
+            }, [cartProducts])
 
              useEffect (() => {
 
@@ -131,7 +129,7 @@ function ProductDetails () {
                                     <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
                                 </div>
 
-                                <button onClick={() => handleClick (savedproducts[id-1].id)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300'>Add to cart</button>
+                                <button onClick={() => addToCart (id-1)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300'>Add to cart</button>
                             </div>
                  </div>
               </div>
@@ -152,7 +150,7 @@ function ProductDetails () {
 
                      <div className="mt-3 flex justify-between px-2">
                         <p onClick={handleScroll}  className="bg-gray-300 p-1 rounded text-gray-700"><Link to={`/products/${product.id}`}><FaEye/></Link></p>
-                        <p onClick={() => handleClick (product.id)} className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700"><FiShoppingCart  /></p> 
+                        <p onClick={() => addToCart (product.id-1)} className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700"><FiShoppingCart  /></p> 
                      </div>
 
                   </div> 

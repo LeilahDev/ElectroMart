@@ -44,13 +44,14 @@ function ProductsCard () {
         localStorage.setItem ('products', JSON.stringify (products));
 
             function addToCart(productId) {
-            const updatedCart = [...cartProducts, products[productId - 1]];
-            setCartProducts(updatedCart);
+                    const updatedCart = [...cartProducts, products[productId - 1]];
+                    setCartProducts(updatedCart);
 
-            localStorage.setItem(
-                'cartProducts',
-                JSON.stringify(updatedCart)
-            ) || [];
+                    localStorage.setItem(
+                        'cartProducts',
+                        JSON.stringify(updatedCart)
+                    ) || [];
+
             }
 
             function handleClick (productId) {

@@ -1,41 +1,57 @@
 import { MdDelete } from "react-icons/md";
-import { useState } from "react";
+ function SingleCartItem ({product , handleDelete , setProductsArray}) {
+    
+            function increase () {
+                setProductsArray(prev =>
+                    prev.map(item =>
+                        item.id === product.id
+                        ? {...item, quantity: item.quantity + 1}
+                        : item
+                    )
+                );
+            }
 
- function SingleCartItem ({product , handleDelete}) {
-      
-      const [count , setCount] = useState (product.quantity);
-      console.log(product);
-
-      function increase () {
-         setCount(prev => prev + 1)
-      }
-
-      function decrease () {
-            setCount(prev => (prev > 1 ? prev - 1 : 1));
-      }
-
+            function decrease () {
+                setProductsArray(prev =>
+                    prev.map(item =>
+                        item.id === product.id
+                        ? {...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1}
+                        : item
+                    )
+                );
+            }
     
     return (
-            <div>
+            
 
-                <div>
-                      <div key={product.id}> 
-                           <img src={product.images} alt="" />
-                                <p>{product.title}</p>
-                                    <p>Ksh. {product.price}</p>
-                                        <div>
-                                            <p onClick={() => handleDelete(product.id)}>Remove <MdDelete /></p>
-                                                <div className='flex border justify-around w-1/4 items-center border-gray-500/50 rounded'>
-                                                    <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={decrease}>-</p>
-                                                    <p>{count}</p>
-                                                    <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
-                                                </div>
-                                        </div>
-                      </div>
+                
+            <div key={product.id} className="bg-gray-300 px-2"> 
+
+                        <div className="flex gap-2 justify-between py-3">
+                            
+                             <div className="flex flex-col gap-2">
+                                   <img src={product.images} alt="" className="h-15 w-15 object-cover"/>
+                                    <p className="text-sm text-gray-800">{product.title}</p>
+                             </div>
+                            <p className="text-orange-800">Ksh. {product.price}</p>
+                        </div>
+
+                        <div className="flex justify-between py-3 border-b border-white">
+                                   <div className="flex  items-center text-orange-700 py-1">
+                                        <p className="text-lg" onClick={() => handleDelete(product.id)}><MdDelete /> </p>
+                                         <p className="text-xs">Remove</p>
+                                   </div>
+                                 
+                                    <div className='flex  px-1 items-center gap-4  rounded '>
+                                        <p className='bg-gray-400 w-5  rounded flex items-center justify-center cursor-pointer' onClick={decrease}>-</p>
+                                        <p>{product.quantity}</p>
+                                        <p className='bg-gray-400 w-5 rounded flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
+                                    </div>
+                        </div>
+                          
                                                
-                </div>
-
-            </div>
+         </div>
+                                                          
     )
  }
 

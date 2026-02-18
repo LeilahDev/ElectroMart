@@ -1,4 +1,5 @@
 function SearchSection () {
+    
    return (
     <>
         <div className="p-2  sm:flex sm:justify-end">
