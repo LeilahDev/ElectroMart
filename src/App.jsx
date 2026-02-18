@@ -15,9 +15,11 @@ const ProductsContext = createContext ();
 function App () {
      
     const [products , setProducts] = useState([]);
+    const [filteredProducts , setFilteredProducts] = useState ([]);
     const [count , setCount] = useState (1);
     const [cartProducts , setCartProducts] = useState ([]);
     const [isOpen, setIsOpen] = useState(false);
+    
     
 
          function increase () {
@@ -42,6 +44,7 @@ function App () {
          
          <ProductsContext.Provider value = {{products, setProducts , count, setCount , increase , decrease , 
                                              cartProducts ,setCartProducts , isOpen ,setIsOpen ,closeNavBar,
+                                             filteredProducts , setFilteredProducts
                                              }}>
           <NavBar />
           <Routes>

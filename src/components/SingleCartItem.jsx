@@ -22,15 +22,13 @@ import { MdDelete } from "react-icons/md";
             }
     
     return (
-            
-
-                
-            <div key={product.id} className="bg-gray-300 px-2"> 
+              
+            <div key={product.id} className="bg-gray-300 px-2 sm:px-5"> 
 
                         <div className="flex gap-2 justify-between py-3">
                             
                              <div className="flex flex-col gap-2">
-                                   <img src={product.images} alt="" className="h-15 w-15 object-cover"/>
+                                   <img src={product.images} alt="" className="h-15 w-15 object-cover sm:h-20 sm:w-20"/>
                                     <p className="text-sm text-gray-800">{product.title}</p>
                              </div>
                             <p className="text-orange-800">Ksh. {product.price}</p>
@@ -47,9 +45,7 @@ import { MdDelete } from "react-icons/md";
                                         <p>{product.quantity}</p>
                                         <p className='bg-gray-400 w-5 rounded flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
                                     </div>
-                        </div>
-                          
-                                               
+                        </div>                            
          </div>
                                                           
     )

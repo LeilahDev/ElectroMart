@@ -7,11 +7,11 @@ import { Link } from 'react-router-dom';
 
 
 function ProductsCard () {
-       const {products, setProducts , cartProducts,  setCartProducts} = useContext(ProductsContext);
+       const {products, setProducts ,filteredProducts , setFilteredProducts, cartProducts,  setCartProducts } = useContext(ProductsContext);
 
         const [errorMessage , setErrorMessage] = useState(null);
         const [visibleCount , setVisibleCount] = useState (4);
-        const visibleProducts = products.slice(0, visibleCount);
+        const visibleProducts = filteredProducts.slice(0, visibleCount);
         const [successMesage , setSuccessMessage] = useState(false);
 
         function showMore () {
@@ -30,6 +30,7 @@ function ProductsCard () {
                         }
                         
                           setProducts (data);
+                          setFilteredProducts(data);
                    } catch{
                             if(error instanceof TypeError){
                                 setErrorMessage ("Network error: Check Your internet connection")
@@ -71,11 +72,17 @@ function ProductsCard () {
 
              }, [successMesage])
 
+             function handleNotFound (){
+                setFilteredProducts(products)
+             }
+
         return (
             <>
              <div className="grid grid-cols-1 gap-6 p-3 sm:grid-cols-2 md:grid-cols-4 md:p-1 md:gap-3 lg:gap-12">
 
-              {visibleProducts.map ((product) => 
+            {visibleProducts.length !== 0
+               ?
+                visibleProducts.map ((product) => 
                   <div key = {product.id}  className="bg-gray-300 p-1 sm:p-2 pb-3 rounded md:p-1">
                     <img src={product.images} alt=""
                      className="w-full h-40 object-cover pb-3 rounded"
@@ -91,8 +98,19 @@ function ProductsCard () {
                         ><FiShoppingCart  /></p> 
                      </div>
 
-                  </div> 
-              )}
+                  </div> )
+              
+                 :
+                <div className="py-3">
+                    <p className="text-gray-700 text-lg">No products found</p>
+                    <p className="text-gray-500 text-sm mt-1">
+                        Try searching with a different name or category.
+                    </p>
+
+                 </div>
+
+            }
+
                     <p className={`
                     fixed top-2 left-3 right-3 z-50
                     bg-green-300 text-gray-600 p-3 rounded shadow-md
@@ -107,9 +125,21 @@ function ProductsCard () {
                     </p>
              </div>
 
-             <div className='md:flex md:justify-center md:mt-5'>
-                 {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800'>View More</button>}
-             </div>
+            {visibleProducts.length !== 0 
+                ? 
+                <div className='md:flex md:justify-center md:mt-5'>
+                   {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800'>View More</button>}
+               </div>
+                :
+                    
+                <div className='md:flex md:justify-center md:mt-5'>
+                    <button onClick={() => handleNotFound ()}  className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800' >
+                        View all products
+                    </button>
+                </div>
+                    
+            }
+            
            
            
             </>
