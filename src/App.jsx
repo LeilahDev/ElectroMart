@@ -7,7 +7,7 @@ import CartPage from './pages/CartPage.jsx'
 import CheckOutPage from './pages/CheckOutPage.jsx'
 import ConfirmationPage  from './pages/ConfirmationPage.jsx'
 import Footer from './components/Footer.jsx'
-import { createContext ,useState } from 'react'
+import { createContext ,useState, useEffect } from 'react'
 
 const ProductsContext = createContext ();
 
@@ -17,9 +17,22 @@ function App () {
     const [products , setProducts] = useState([]);
     const [filteredProducts , setFilteredProducts] = useState ([]);
     const [count , setCount] = useState (1);
-    const [cartProducts , setCartProducts] = useState ([]);
     const [isOpen, setIsOpen] = useState(false);
     
+       const [total , setTotal] = useState(0);
+    const [cartProducts, setCartProducts] = useState(() => {
+           const savedCart = localStorage.getItem("cartProducts");
+           return savedCart ? JSON.parse(savedCart) : [];
+      });
+   
+         useEffect(() => {
+
+         localStorage.setItem(
+            "cartProducts",
+            JSON.stringify(cartProducts)
+         );
+
+      }, [cartProducts]);
     
 
          function increase () {
@@ -44,7 +57,7 @@ function App () {
          
          <ProductsContext.Provider value = {{products, setProducts , count, setCount , increase , decrease , 
                                              cartProducts ,setCartProducts , isOpen ,setIsOpen ,closeNavBar,
-                                             filteredProducts , setFilteredProducts
+                                             filteredProducts , setFilteredProducts, total , setTotal
                                              }}>
           <NavBar />
           <Routes>

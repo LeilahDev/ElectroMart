@@ -129,7 +129,7 @@ function ProductDetails () {
                                     <p className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
                                 </div>
 
-                                <button onClick={() => addToCart (id-1)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300'>Add to cart</button>
+                                <button onClick={() => addToCart (id-1)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300 cursor-pointer'>Add to cart</button>
                             </div>
                  </div>
               </div>
@@ -159,8 +159,7 @@ function ProductDetails () {
                 <p className={`
                     fixed top-2 left-3 right-3 z-50
                     bg-green-300 text-gray-600 p-3 rounded shadow-md
-                    
-                    transition-all duration-500 ease-in-out
+                    transition-all duration-500 ease-in-out text-center
                     
                     ${successMesage 
                         ? "opacity-100 translate-y-0" 

@@ -93,7 +93,7 @@ function ProductsCard () {
 
                      <div className="mt-3 flex justify-between px-2">
                         <p  className="bg-gray-300 p-1 rounded text-gray-700"><Link to={`/products/${product.id}`}><FaEye/></Link></p>
-                        <p className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700"
+                        <p className="bg-gray-400 p-1 rounded-full flex justify-center items-center md:p-2 text-gray-700 cursor-pointer"
                            onClick={ () => handleClick(product.id) }
                         ><FiShoppingCart  /></p> 
                      </div>
