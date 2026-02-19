@@ -19,7 +19,10 @@ function App () {
     const [count , setCount] = useState (1);
     const [isOpen, setIsOpen] = useState(false);
     
-       const [total , setTotal] = useState(0);
+       const [total , setTotal] = useState(() => {
+             const savedTotal = localStorage.getItem ('Total');
+             return savedTotal ? JSON.parse (savedTotal) : 0;
+       });
     const [cartProducts, setCartProducts] = useState(() => {
            const savedCart = localStorage.getItem("cartProducts");
            return savedCart ? JSON.parse(savedCart) : [];

@@ -45,6 +45,10 @@ import { ProductsContext } from "../App.jsx";
           setTotal(subTotal)
        },[productsArray])
 
+       useEffect (() => {
+           localStorage.setItem ('Total' , JSON.stringify (total))
+       }, [total])
+
      return (
         <>
 

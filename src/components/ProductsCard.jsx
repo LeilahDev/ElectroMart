@@ -112,7 +112,7 @@ function ProductsCard () {
             }
 
                     <p className={`
-                    fixed top-2 left-3 right-3 z-50
+                    fixed top-2 left-3 right-3 z-50 text-center
                     bg-green-300 text-gray-600 p-3 rounded shadow-md
                     
                     transition-all duration-500 ease-in-out
