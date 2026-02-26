@@ -1,5 +1,5 @@
 import SearchSection from "../components/SearchSection"
-import studioHeadPhones from '../assets/studioHeadPhones.png'
+import studioHeadphones from '../assets/studioHeadphones.png'
 import { FaChevronDown } from "react-icons/fa";
 import ProductsCard from '../components/ProductsCard' 
 import ProductsCategory from "../components/ProductsCategory";
@@ -17,7 +17,7 @@ import ProductsCategory from "../components/ProductsCategory";
                     {/* Added the relative position */}
                             <div className="flex flex-col justify-center items-center md:flex-row">
                             <div className="w-3/4 md:order-2 lg:flex lg:justify-center">
-                                <img src={studioHeadPhones} />                  
+                                <img src={studioHeadphones} />                  
                             </div>
 
                             <div className="text-center bg-gray-300 px-2 py-3 md:py-4 text-gray-700
