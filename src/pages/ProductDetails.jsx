@@ -11,7 +11,7 @@ function ProductDetails () {
 
     const {count,setCount, increase , decrease, cartProducts,products,filteredProducts,setCartProducts } = useContext(ProductsContext)
 
-    console.log(filteredProducts)
+    
      
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
