@@ -24,6 +24,7 @@ import { ProductsContext } from "../App.jsx";
                     )
                 );
             }
+           const isDisabled = product.quantity >= product.stock;
     
     return (
               
@@ -49,9 +50,9 @@ import { ProductsContext } from "../App.jsx";
                                    </div>
                                  
                                     <div className='flex  px-1 items-center gap-4  rounded '>
-                                        <p className='bg-orange-600 text-gray-200 w-5  rounded flex items-center justify-center cursor-pointer' onClick={decrease}>-</p>
+                                        <button className='bg-orange-600 text-gray-200 w-5  rounded flex items-center justify-center cursor-pointer' onClick={decrease}>-</button>
                                         <p>{product.quantity}</p>
-                                        <p className='bg-orange-600 text-gray-200 w-5 rounded flex items-center justify-center cursor-pointer' onClick={increase}>+</p>
+                                        <button className='bg-orange-600 text-gray-200 w-5 rounded flex items-center justify-center cursor-pointer' disabled={isDisabled} onClick={increase}>+</button>
                                     </div>
                         </div>                            
          </div>

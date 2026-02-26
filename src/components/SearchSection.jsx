@@ -3,7 +3,7 @@ import { ProductsContext } from "../App.jsx"
 
 function SearchSection () {
 
-const {products,setFilteredProducts} = useContext(ProductsContext);
+const {products,setVisibleButton,setFilteredProducts} = useContext(ProductsContext);
 const [inputValue, setInputValue] = useState("");
 
 function handleInput (event) {
@@ -25,8 +25,7 @@ function handleInput (event) {
             );
 
             setFilteredProducts(searchedProducts);
-            console.log(searchedProducts);
-
+            setVisibleButton(true);
             setInputValue ("")
 
  }

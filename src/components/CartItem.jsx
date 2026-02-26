@@ -17,9 +17,10 @@ import { ProductsContext } from "../App.jsx";
                acc[product.id] = { ...product, quantity: product.quantity || 1 };
             }
             return acc;
-         }, {})) 
+         }, {}));
 
-          function handleDelete(productId) {
+  
+        function handleDelete(productId) {
             setCartProducts(prev => {
                const updatedProducts = prev.filter(
                   item => item.id !== productId
@@ -49,6 +50,7 @@ import { ProductsContext } from "../App.jsx";
            localStorage.setItem ('Total' , JSON.stringify (total))
        }, [total])
 
+      
      return (
         <>
 

@@ -7,42 +7,17 @@ import { Link } from 'react-router-dom';
 
 
 function ProductsCard () {
-       const {products, setProducts ,filteredProducts , setFilteredProducts, cartProducts,  setCartProducts } = useContext(ProductsContext);
+       const {products,filteredProducts,setFilteredProducts, cartProducts,visibleButton,setVisibleButton, setCartProducts } = useContext(ProductsContext);
 
-        const [errorMessage , setErrorMessage] = useState(null);
         const [visibleCount , setVisibleCount] = useState (4);
         const visibleProducts = filteredProducts.slice(0, visibleCount);
-        const [successMesage , setSuccessMessage] = useState(false);
+        const [successMesage , setSuccessMessage] = useState(false);        
 
         function showMore () {
             products.slice(0, visibleCount);
             setVisibleCount (prev => prev + 4);
         }
-    
-        useEffect(()=>{
-             const productsArray = async () => {
-                   try{
-                        const res = await fetch ("/products.json");
-                        const data = await res.json ();
-    
-                        if(!res){
-                            throw new Error ("Something went wrong")
-                        }
-                        
-                          setProducts (data);
-                          setFilteredProducts(data);
-                   } catch{
-                            if(error instanceof TypeError){
-                                setErrorMessage ("Network error: Check Your internet connection")
-                            }else {
-                                setErrorMessage (error.message);
-                            }
-                   }
-             }
-             productsArray ();
-        }, [])
 
-        localStorage.setItem ('products', JSON.stringify (products));
 
             function addToCart(productId) {
                     const updatedCart = [...cartProducts, products[productId - 1]];
@@ -72,9 +47,11 @@ function ProductsCard () {
 
              }, [successMesage])
 
-             function handleNotFound (){
-                setFilteredProducts(products)
-             }
+
+    function handleViewAll  (){
+         setFilteredProducts(products)
+        setVisibleButton(false)
+    }
 
         return (
             <>
@@ -125,23 +102,22 @@ function ProductsCard () {
                     </p>
              </div>
 
-            {visibleProducts.length !== 0 
-                ? 
+            {visibleProducts.length !== 0 && !visibleButton ?  
+
                 <div className='md:flex md:justify-center md:mt-5'>
                    {visibleCount < products.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800'>View More</button>}
                </div>
-                :
+
+                : 
                     
                 <div className='md:flex md:justify-center md:mt-5'>
-                    <button onClick={() => handleNotFound ()}  className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800' >
+                    <button onClick={() => handleViewAll ()}  className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800' >
                         View all products
                     </button>
-                </div>
+                 </div>
                     
             }
             
-           
-           
             </>
         )
  }

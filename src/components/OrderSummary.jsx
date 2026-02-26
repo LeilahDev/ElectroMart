@@ -1,9 +1,14 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ProductsContext } from "../App.jsx";
 
 
 function OrderSummary () {
-    const {cartProducts ,total} = useContext (ProductsContext);
+    const {total} = useContext (ProductsContext);
+
+    const [cartProducts, setCartProducts] = useState(() => {
+           const savedCart = localStorage.getItem("cartProducts");
+           return savedCart ? JSON.parse(savedCart) : []})
+
 
      return (
                 <div className="flex flex-col mb-5 mt-5 border-b border-white pb-2">

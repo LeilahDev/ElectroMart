@@ -11,10 +11,13 @@ import { createContext ,useState, useEffect } from 'react'
 
 const ProductsContext = createContext ();
 
-
 function App () {
      
-    const [products , setProducts] = useState([]);
+    const [products , setProducts] = useState(() => {
+            const savedProducts = localStorage.getItem("products");
+            return savedProducts ? JSON.parse(savedProducts) : [];
+    });
+
     const [filteredProducts , setFilteredProducts] = useState ([]);
     const [count , setCount] = useState (1);
     const [isOpen, setIsOpen] = useState(false);
@@ -53,14 +56,46 @@ function App () {
          function closeNavBar () {
             setIsOpen (false)
          }
-   
 
+         useEffect(() => {
+            const savedProducts = localStorage.getItem("products");
+
+            if (!savedProducts) {
+               const fetchProducts = async () => {
+                     try {
+                        const res = await fetch("/products.json");
+                        if (!res.ok) throw new Error("Failed to fetch products");
+                        const data = await res.json();
+                        setProducts(data);
+                        setFilteredProducts(data);
+                        localStorage.setItem("products", JSON.stringify(data));
+                     } catch (error) {
+                        console.error("Error fetching products:", error);
+                     }
+               };
+               fetchProducts();
+            } else {
+               
+               const data = JSON.parse(savedProducts);
+               setProducts(data);
+               setFilteredProducts(data);
+            }
+         }, []);
+
+           
+      // useEffect (() => {
+      //    localStorage.setItem("products", JSON.stringify(filteredProducts));
+        
+      // },[filteredProducts])
+
+
+       const [visibleButton,setVisibleButton] = useState(false);
    return <>
 
          
          <ProductsContext.Provider value = {{products, setProducts , count, setCount , increase , decrease , 
                                              cartProducts ,setCartProducts , isOpen ,setIsOpen ,closeNavBar,
-                                             filteredProducts , setFilteredProducts, total , setTotal
+                                             filteredProducts , setFilteredProducts, total , setTotal,visibleButton, setVisibleButton
                                              }}>
           <NavBar />
           <Routes>
