@@ -8,19 +8,24 @@ import { HiOutlineUser } from "react-icons/hi";
 import { MdClose } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import {  HiChevronDown, HiChevronUp } from "react-icons/hi";
-import { ProductsContext } from "../App.jsx";
+import { ProductsContext } from "../ProductContext.jsx";
 
 function NavBar () {
-    const {isOpen , setIsOpen , closeNavBar} = useContext (ProductsContext)
+    const {isOpen , setIsOpen , setDisplayedProducts, allProducts,  setShowMoreBtn} = useContext (ProductsContext)
     const [subMenu, setSubMenu] = useState (false);
 
- useEffect(() => {
-    if (isOpen) {
-      document.body.classList.add("overflow-x-hidden");
-    } else {
-      document.body.classList.remove("overflow-x-hidden");
-    }
-  }, [isOpen]);
+    
+      function closeNavBar () {
+            setIsOpen (false)
+         }
+
+        useEffect(() => {
+            if (isOpen) {
+            document.body.classList.add("overflow-x-hidden");
+            } else {
+            document.body.classList.remove("overflow-x-hidden");
+            }
+        }, [isOpen]);
 
     function toggle () {
         if(!isOpen){
@@ -36,6 +41,23 @@ function NavBar () {
         }else{
            setSubMenu(false)
         }
+    }
+
+    function categoryFun (category) {
+        closeNavBar ();
+        categoryProducts (category);
+    }
+
+    function categoryProducts (category) {
+
+        const categoryProducts = allProducts.filter(item =>
+                item.title.toLowerCase().includes(category) ||
+                item.category.toLowerCase().includes(category)
+            );
+        
+       setDisplayedProducts (categoryProducts)
+       setShowMoreBtn(false);
+       setSubMenu(false)
     }
 
    return (
@@ -97,10 +119,10 @@ function NavBar () {
                      
                      {subMenu && 
                         <div className="flex flex-col gap-2 pl-12 py-4 md:absolute md:justify-center md:bg-gray-800 md:py-3 md:px-5 md:top-12 md:text-gray-200/80">
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Smartphones</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Laptops</Link>
-                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={closeNavBar}>Headphones</Link>
-                                    <Link className="text-center w-3/4 md:w-full hover:text-orange-700" onClick={closeNavBar}>Acessories</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={() => categoryFun ("smartphone")}>Smartphones</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={() => categoryFun ("laptops")}>Laptops</Link>
+                                    <Link className="border-b border-gray-400/40 w-3/4 text-center pb-1 md:w-full hover:text-orange-700" onClick={() => categoryFun ("headphones")}>Headphones</Link>
+                                    <Link className="text-center w-3/4 md:w-full hover:text-orange-700" onClick={() => categoryFun ("accessories")}>Acessories</Link>
                         </div>
                       }
                                              

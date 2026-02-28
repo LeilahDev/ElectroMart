@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
-import { ProductsContext } from "../App.jsx";
+import { ProductsContext } from "../ProductContext.jsx";
  function SingleCartItem ({product , handleDelete}) {
 
     const {setCartProducts} = useContext(ProductsContext)

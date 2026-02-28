@@ -8,21 +8,17 @@ import laptop from "../assets/laptop.jpg"
 import smartphone from "../assets/smartphone.jpg"
 import headphone from "../assets/headphone.jpg"
 import assesories from "../assets/assesories.jpg"
-import { useContext, useRef, useState , useEffect } from "react";
-import { ProductsContext } from "../App.jsx";
+import {  useRef, useState } from "react";
 import { Link } from "react-router-dom"
 
 function LandingPage () {
 
+  //Categories slider
   const images = [laptop, smartphone, headphone , assesories];
   const categories = ["Laptops", "Smartphones", "Headphones" , "Assesories"]
   
   const [activeIndex, setActiveIndex] = useState(0);
   const [direction, setDirection] = useState("next");
-
-  const sectionRef = useRef (null);
-
-  const {closeNavBar} = useContext(ProductsContext);
 
   function previous () {
        if(activeIndex < images.length && activeIndex > 0){
@@ -38,18 +34,14 @@ function LandingPage () {
        }
   }
 
+  //Scroll to products section
+  const sectionRef = useRef (null);
+
   function handleScroll () {
      sectionRef.current.scrollIntoView ({
        behavior: "smooth"
      })
   }
-    useEffect(() => {
-      window.addEventListener("scroll", closeNavBar);
-
-      return () => {
-        window.removeEventListener("scroll", closeNavBar);
-      };
-    }, [closeNavBar]);
 
   return (
     <div className="bg-gray-200 p-5 sm:px-8 md:p-8 md:px-12">

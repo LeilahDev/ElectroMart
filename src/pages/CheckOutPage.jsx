@@ -1,17 +1,17 @@
 import OrderSummary from "../components/OrderSummary.jsx"
 import ConfirmationPage from "./ConfirmationPage.jsx"
 import {useState , useContext, useEffect} from 'react'
-import { ProductsContext } from "../App.jsx";
+import { ProductsContext } from "../ProductContext.jsx";
 
 function CheckOutPage () {
     const [showConfirmation , setShowConfirmation] = useState (false);
-    const { setCartProducts, cartProducts,setFilteredProducts} = useContext(ProductsContext);
+    const { setCartProducts, cartProducts,setDisplayedProducts} = useContext(ProductsContext);
 
 
     function handleSubmit (e) {
         e.preventDefault();    
 
-            setFilteredProducts(prevProducts =>
+           setDisplayedProducts(prevProducts =>
                 prevProducts.map(product => {
                 const cartItem = cartProducts.find(item => item.id === product.id);
 

@@ -4,7 +4,7 @@ import SingleCartItem from "./SingleCartItem.jsx";
 import { Link } from "react-router-dom"
 import ProductsCard from "./ProductsCard.jsx";
 import { useContext } from "react";
-import { ProductsContext } from "../App.jsx";
+import { ProductsContext } from "../ProductContext.jsx";
  
  function CartItem () {
    

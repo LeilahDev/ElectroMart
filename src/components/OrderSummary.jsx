@@ -1,11 +1,11 @@
 import { useContext, useState } from "react";
-import { ProductsContext } from "../App.jsx";
+import { ProductsContext } from "../ProductContext.jsx";
 
 
 function OrderSummary () {
     const {total} = useContext (ProductsContext);
 
-    const [cartProducts, setCartProducts] = useState(() => {
+    const [cartProducts] = useState(() => {
            const savedCart = localStorage.getItem("cartProducts");
            return savedCart ? JSON.parse(savedCart) : []})
 

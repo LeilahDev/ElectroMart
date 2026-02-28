@@ -1,9 +1,9 @@
 import { useContext, useState } from "react"
-import { ProductsContext } from "../App.jsx"
+import { ProductsContext } from "../ProductContext.jsx"
 
 function SearchSection () {
 
-const {products,setVisibleButton,setFilteredProducts} = useContext(ProductsContext);
+const {allProducts, setShowMoreBtn,setDisplayedProducts} = useContext(ProductsContext);
 const [inputValue, setInputValue] = useState("");
 
 function handleInput (event) {
@@ -11,21 +11,15 @@ function handleInput (event) {
 }
 
  function searchItem () {
-
-          const search = inputValue.toLowerCase();
-
-             if (!search) {
-                setFilteredProducts(products);
-                return;
-                }
+           const search = inputValue.toLowerCase();
            
-            const searchedProducts = products.filter(item =>
+            const searchedProducts = allProducts.filter(item =>
                 item.title.toLowerCase().includes(search) ||
                 item.category.toLowerCase().includes(search)
             );
 
-            setFilteredProducts(searchedProducts);
-            setVisibleButton(true);
+            setDisplayedProducts(searchedProducts);
+             setShowMoreBtn(false);
             setInputValue ("")
 
  }

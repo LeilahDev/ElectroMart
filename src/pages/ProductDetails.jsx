@@ -3,51 +3,41 @@ import SearchSection from '../components/SearchSection.jsx'
 import { FiShoppingCart } from "react-icons/fi";
 import { FaEye } from "react-icons/fa";
 import { useContext, useState , useRef , useEffect } from 'react';
-import { ProductsContext } from '../App.jsx';
+import { ProductsContext } from '../ProductContext.jsx';
 import {Link} from 'react-router-dom';
 
 
 function ProductDetails () {
 
-    const {count,setCount, increase , decrease, cartProducts,products,filteredProducts,setCartProducts } = useContext(ProductsContext)
+    const {count,setCount, increase , decrease, cartProducts,allProducts,displayedProducts,setCartProducts } = useContext(ProductsContext)
 
-    
-     
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
       const sectionRef = useRef (null);
       const [successMesage , setSuccessMessage] = useState(false);
+      const [outStockMessage , setOutStockMessage] = useState (false);
      
       const {id} = useParams();
       const productId = Number(id);
 
-       const productCategory = products[productId-1].category
-       const currentProduct = products[productId-1].title
+       const productCategory = allProducts[productId-1].category
+       const currentProduct = allProducts[productId-1].title
 
-       const productsArray = products.filter ((item) => {
+       const similarProducts = allProducts.filter ((item) => {
              if(currentProduct !== item.title && productCategory === item.category) {
                 return item
              }
        }) ;
 
-         function description () {
-            if(!collapse1) {
-                setCollapse1 (true);
-                 setCollapse2 (false);
-            }else if(collapse1){
-                setCollapse1 (false)
+            function toggleCollapse(section) {
+                if (section === "description") {
+                    setCollapse1(prev => !prev);
+                    setCollapse2(false);
+                } else if (section === "specification") {
+                    setCollapse2(prev => !prev);
+                    setCollapse1(false);
+                }
             }
-         }
-
-         function specification () {
-            if(!collapse2) {
-                setCollapse2 (true);
-                setCollapse1 (false);
-            }else if(collapse2){
-                setCollapse2 (false);
-                
-            }
-         }
 
            function handleScroll () {
                 sectionRef.current.scrollIntoView ({
@@ -57,7 +47,16 @@ function ProductDetails () {
 
 
             function addToCart(productId) {
-                const product = products[productId];
+
+            const findProduct = allProducts.filter((product) => {
+                if(product.stock === 0 && product.id === productId)
+                    return product;
+            })
+
+            if(findProduct) {
+                setOutStockMessage(true)
+            }else{
+                const product = allProducts[productId];
                 setCartProducts(prev => {
                     const existingIndex = prev.findIndex(item => item.id === product.id);
                     if (existingIndex !== -1) {
@@ -76,25 +75,28 @@ function ProductDetails () {
                 
                 setSuccessMessage(true);
                 setCount(1);
+               }
+
             }
 
             useEffect (() => {
                 localStorage.setItem('cartProducts' , JSON.stringify(cartProducts));
             }, [cartProducts])
 
-             useEffect (() => {
+        useEffect (() => {
 
-                if(successMesage) {
+                if(successMesage, outStockMessage) {
                 const timer = setTimeout(() => {
                           setSuccessMessage(false)
+                          setOutStockMessage(false)
                         }, 2000)
 
                     return () => clearTimeout(timer);
                 }
 
-             }, [successMesage])
+             }, [successMesage, outStockMessage])
 
-             const product = filteredProducts.find(p => p.id === productId);
+             const product = displayedProducts.find(p => p.id === productId);
 
              const isDisabled = count >= product?.stock;
 
@@ -105,22 +107,22 @@ function ProductDetails () {
         <div ref= {sectionRef} className='relative p-8 sm:grid sm:grid-cols-3 sm:gap-4 md:px-15 md:gap-8 md:grid-cols-4 lg:px-50'>
 
                 <div className='sm:col-span-1  md:col-span-2'>
-                     <img src={products[productId-1].images} alt="" className='h-60 rounded w-full object-cover sm:h-80' />
+                     <img src={allProducts[productId-1].images} alt="" className='h-60 rounded w-full object-cover sm:h-80' />
                 </div>
                  
                  <div className='sm:col-span-2 md:col-span-2'>
-                        <h1 className='mt-5 text-lg font-semibold text-gray-800'>{products[productId-1].title}</h1>
-                            <p className='text-xs mb-2 mt-2 text-gray-700'>Brand: {products[productId-1].brand}</p>
-                            <p className='border-b py-2 mb-4 border-gray-500/50 text-gray-700'>Ksh. {products[productId-1].price}</p>
+                        <h1 className='mt-5 text-lg font-semibold text-gray-800'>{allProducts[productId-1].title}</h1>
+                            <p className='text-xs mb-2 mt-2 text-gray-700'>Brand: {allProducts[productId-1].brand}</p>
+                            <p className='border-b py-2 mb-4 border-gray-500/50 text-gray-700'>Ksh. {allProducts[productId-1].price}</p>
                             
                             
-                                <p className='text-gray-700 cursor-pointer' onClick={description}>+ Description</p>
+                                <p className='text-gray-700 cursor-pointer' onClick={() => toggleCollapse ("description")}>+ Description</p>
                                 {collapse1 && 
-                                    <p className='text-gray-700 pl-4 pt-1 text-sm'>{products[productId-1].description}</p>
+                                    <p className='text-gray-700 pl-4 pt-1 text-sm'>{allProducts[productId-1].description}</p>
                                 }
                                 
                                 <div className='border-b border-t pb-4 mb-4 mt-4 pt-4 border-gray-500/50 text-gray-700 cursor-pointer'>
-                                        <p  onClick={specification}>+ Specification</p>
+                                        <p  onClick={() => toggleCollapse ("specification")}>+ Specification</p>
 
                                         {collapse2 && 
                                                     <div className='text-gray-700 px-4 pt-1 text-sm flex justify-between'>
@@ -133,7 +135,7 @@ function ProductDetails () {
 
             
                             <div className='text-xs bg-gray-300 w-1/4 py-1 text-center rounded '>
-                                <p className='text-gray-800'>{filteredProducts[productId-1].stock} in stock</p>
+                                <p className='text-gray-800'>{displayedProducts[productId-1].stock} in stock</p>
                             </div>
 
 
@@ -154,7 +156,7 @@ function ProductDetails () {
 
              <div className="grid grid-cols-1 gap-8 p-3 sm:grid-cols-2 md:grid-cols-4 md:p-1 md:gap-3 lg:gap-12">
 
-              {productsArray.map ((product) => 
+              {similarProducts.map ((product) => 
                   <div key = {product.id}  className="bg-gray-300 p-1 sm:p-2 pb-3 rounded md:p-1">
                     <img src={product.images} alt=""
                      className="w-full h-40 object-cover pb-3 rounded"
@@ -182,6 +184,19 @@ function ProductDetails () {
                     `}>
                     Product Added successfully
                 </p>
+
+                               <p className={`
+                    fixed top-2 left-3 right-3 z-50 text-center
+                    bg-green-300 text-gray-600 p-3 rounded shadow-md
+                    
+                    transition-all duration-500 ease-in-out
+                    
+                    ${outStockMessage 
+                        ? "opacity-100 translate-y-0" 
+                        : "opacity-0 -translate-y-5"}
+                    `}>
+                    Product is currently out of stock
+                    </p>
 
              </div>
         </div> 
