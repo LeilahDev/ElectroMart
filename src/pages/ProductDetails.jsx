@@ -9,13 +9,14 @@ import {Link} from 'react-router-dom';
 
 function ProductDetails () {
 
-    const {count,setCount, increase , decrease, cartProducts,allProducts,displayedProducts,setCartProducts } = useContext(ProductsContext)
+    const {count,setCount, increase , decrease, cartProducts,
+         outOfStockMsg, setOutOfStockMsg, allProducts,displayedProducts,
+         setCartProducts,successMesage , setSuccessMessage } = useContext(ProductsContext)
 
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
       const sectionRef = useRef (null);
-      const [successMesage , setSuccessMessage] = useState(false);
-      const [outStockMessage , setOutStockMessage] = useState (false);
+     
      
       const {id} = useParams();
       const productId = Number(id);
@@ -23,21 +24,30 @@ function ProductDetails () {
        const productCategory = allProducts[productId-1].category
        const currentProduct = allProducts[productId-1].title
 
-       const similarProducts = allProducts.filter ((item) => {
+       const productsArray = allProducts.filter ((item) => {
              if(currentProduct !== item.title && productCategory === item.category) {
                 return item
              }
        }) ;
 
-            function toggleCollapse(section) {
-                if (section === "description") {
-                    setCollapse1(prev => !prev);
-                    setCollapse2(false);
-                } else if (section === "specification") {
-                    setCollapse2(prev => !prev);
-                    setCollapse1(false);
-                }
+         function description () {
+            if(!collapse1) {
+                setCollapse1 (true);
+                 setCollapse2 (false);
+            }else if(collapse1){
+                setCollapse1 (false)
             }
+         }
+
+         function specification () {
+            if(!collapse2) {
+                setCollapse2 (true);
+                setCollapse1 (false);
+            }else if(collapse2){
+                setCollapse2 (false);
+                
+            }
+         }
 
            function handleScroll () {
                 sectionRef.current.scrollIntoView ({
@@ -46,55 +56,59 @@ function ProductDetails () {
             }
 
 
-            function addToCart(productId) {
+                function addToCart(productId) {
+                const product = displayedProducts.find(p => p.id === productId);
 
-            const findProduct = allProducts.filter((product) => {
-                if(product.stock === 0 && product.id === productId)
-                    return product;
-            })
+                if (!product) return;
 
-            if(findProduct) {
-                setOutStockMessage(true)
-            }else{
-                const product = allProducts[productId];
+                if (product.stock === 0) {
+                    setOutOfStockMsg(true);
+                    return;
+                }
+
                 setCartProducts(prev => {
-                    const existingIndex = prev.findIndex(item => item.id === product.id);
-                    if (existingIndex !== -1) {
-                        // If product already in cart, increase quantity
-                        const updatedCart = [...prev];
-                        updatedCart[existingIndex] = {
-                            ...updatedCart[existingIndex],
-                            quantity: updatedCart[existingIndex].quantity + count
+                    const existing = prev.find(item => item.id === productId);
+
+                    // If product already exists in cart
+                    if (existing) {
+                    return prev.map(item => {
+                        if (item.id === productId) {
+
+                        // If selected quantity exceeds stock → reset to max stock
+                        const newQuantity = item.quantity + count;
+
+                        return {
+                            ...item,
+                            quantity: newQuantity > product.stock
+                            ? product.stock
+                            : newQuantity
                         };
-                        return updatedCart;
-                    } else {
-                        // Add new product to cart
-                        return [...prev, { ...product, quantity: count }];
+                        }
+
+                        return item;
+                    });
                     }
+
+                    // If product does not exist in cart yet
+                    return [
+                    ...prev,
+                    {
+                        ...product,
+                        quantity: count > product.stock
+                        ? product.stock
+                        : count
+                    }
+                    ];
                 });
-                
+
                 setSuccessMessage(true);
                 setCount(1);
-               }
-
-            }
+                }
 
             useEffect (() => {
                 localStorage.setItem('cartProducts' , JSON.stringify(cartProducts));
             }, [cartProducts])
 
-        useEffect (() => {
-
-                if(successMesage, outStockMessage) {
-                const timer = setTimeout(() => {
-                          setSuccessMessage(false)
-                          setOutStockMessage(false)
-                        }, 2000)
-
-                    return () => clearTimeout(timer);
-                }
-
-             }, [successMesage, outStockMessage])
 
              const product = displayedProducts.find(p => p.id === productId);
 
@@ -116,13 +130,13 @@ function ProductDetails () {
                             <p className='border-b py-2 mb-4 border-gray-500/50 text-gray-700'>Ksh. {allProducts[productId-1].price}</p>
                             
                             
-                                <p className='text-gray-700 cursor-pointer' onClick={() => toggleCollapse ("description")}>+ Description</p>
+                                <p className='text-gray-700 cursor-pointer' onClick={description}>+ Description</p>
                                 {collapse1 && 
                                     <p className='text-gray-700 pl-4 pt-1 text-sm'>{allProducts[productId-1].description}</p>
                                 }
                                 
                                 <div className='border-b border-t pb-4 mb-4 mt-4 pt-4 border-gray-500/50 text-gray-700 cursor-pointer'>
-                                        <p  onClick={() => toggleCollapse ("specification")}>+ Specification</p>
+                                        <p  onClick={specification}>+ Specification</p>
 
                                         {collapse2 && 
                                                     <div className='text-gray-700 px-4 pt-1 text-sm flex justify-between'>
@@ -146,7 +160,7 @@ function ProductDetails () {
                                     <button className='bg-gray-300 w-6 h-6 rounded-full flex items-center justify-center cursor-pointer' disabled={isDisabled} onClick={increase}>+</button>
                                 </div>
 
-                                <button onClick={() => addToCart (productId-1)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300 cursor-pointer'>Add to cart</button>
+                                <button onClick={() => addToCart (productId)} className='bg-orange-700 w-1/2 p-1 rounded text-gray-300 cursor-pointer'>Add to cart</button>
                             </div>
                  </div>
               </div>
@@ -156,7 +170,7 @@ function ProductDetails () {
 
              <div className="grid grid-cols-1 gap-8 p-3 sm:grid-cols-2 md:grid-cols-4 md:p-1 md:gap-3 lg:gap-12">
 
-              {similarProducts.map ((product) => 
+              {productsArray.map ((product) => 
                   <div key = {product.id}  className="bg-gray-300 p-1 sm:p-2 pb-3 rounded md:p-1">
                     <img src={product.images} alt=""
                      className="w-full h-40 object-cover pb-3 rounded"
@@ -185,18 +199,17 @@ function ProductDetails () {
                     Product Added successfully
                 </p>
 
-                               <p className={`
-                    fixed top-2 left-3 right-3 z-50 text-center
+                <p className={`
+                    fixed top-2 left-3 right-3 z-50
                     bg-green-300 text-gray-600 p-3 rounded shadow-md
+                    transition-all duration-500 ease-in-out text-center
                     
-                    transition-all duration-500 ease-in-out
-                    
-                    ${outStockMessage 
+                    ${ outOfStockMsg 
                         ? "opacity-100 translate-y-0" 
                         : "opacity-0 -translate-y-5"}
                     `}>
-                    Product is currently out of stock
-                    </p>
+                    Product currently out of stock
+                </p>
 
              </div>
         </div> 

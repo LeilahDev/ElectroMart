@@ -88,6 +88,35 @@ function ProductContext () {
 
 
 
+       //DISPLAYING THE SUCCESS AND OUT OF STOCK MESSAGE 
+        const [outOfStockMsg, setOutOfStockMsg] = useState (false);
+        const [successMesage , setSuccessMessage] = useState(false);
+       
+             useEffect (() => {
+
+                if(successMesage) {
+                const timer = setTimeout(() => {
+                          setSuccessMessage(false)
+                         
+                        }, 2000)
+
+                    return () => clearTimeout(timer);
+                }
+
+             }, [successMesage])
+
+                          
+             useEffect (() => {
+
+                if(outOfStockMsg) {
+                const timer = setTimeout(() => {
+                          setOutOfStockMsg(false)
+                        }, 2000)
+
+                    return () => clearTimeout(timer);
+                }
+
+             }, [outOfStockMsg])
         
 
        return (
@@ -96,7 +125,7 @@ function ProductContext () {
          <ProductsContext.Provider value = {{allProducts, setAllProducts ,count , setCount ,increase, decrease,
                                              isOpen, setIsOpen,cartProducts, setCartProducts,total , setTotal,
                                              showMoreBtn , setShowMoreBtn,displayedProducts , setDisplayedProducts,
-                                             
+                                             outOfStockMsg, setOutOfStockMsg,successMesage , setSuccessMessage
                                              }} >
 
                          <App />

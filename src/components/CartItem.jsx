@@ -10,15 +10,7 @@ import { ProductsContext } from "../ProductContext.jsx";
    
    const { cartProducts,setCartProducts , total, setTotal } = useContext(ProductsContext);
 
-   const productsArray =   Object.values(cartProducts.reduce((acc, product) => {
-            if (acc[product.id]) {
-               acc[product.id].quantity += product.quantity || 1;
-            } else {
-               acc[product.id] = { ...product, quantity: product.quantity || 1 };
-            }
-            return acc;
-         }, {}));
-
+       const productsArray = cartProducts;
   
         function handleDelete(productId) {
             setCartProducts(prev => {
@@ -28,12 +20,11 @@ import { ProductsContext } from "../ProductContext.jsx";
 
                return updatedProducts;
             });
+        }
 
-            }
-
-      useEffect (() => {
-            localStorage.setItem ('cartProducts', JSON.stringify (productsArray))
-       }, [productsArray])
+        useEffect(() => {
+            localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+        }, [cartProducts]);
 
 
        useEffect(()=>{
