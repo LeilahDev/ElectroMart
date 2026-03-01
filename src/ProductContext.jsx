@@ -10,7 +10,10 @@ function ProductContext () {
           const products = localStorage.getItem('products');
           return products ? JSON.parse(products) : []
     });
-    const [displayedProducts , setDisplayedProducts] = useState([]);
+    const [displayedProducts , setDisplayedProducts] = useState(() => {
+          const products = localStorage.getItem('products');
+          return products ? JSON.parse(products) : []
+    });
 
         useEffect(() => {
         const loadProducts = async () => {

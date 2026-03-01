@@ -54,7 +54,7 @@ function ProductsCard () {
 
     function handleViewAll  (){
          setDisplayedProducts(allProducts)
-        setShowMoreBtn(false)
+          setShowMoreBtn(true)
     }
 
         return (

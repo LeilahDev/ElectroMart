@@ -5,13 +5,13 @@ import { ProductsContext } from "../ProductContext.jsx";
 
 function CheckOutPage () {
     const [showConfirmation , setShowConfirmation] = useState (false);
-    const { setCartProducts, cartProducts,setDisplayedProducts} = useContext(ProductsContext);
+    const { setCartProducts, cartProducts,setAllProducts} = useContext(ProductsContext);
 
 
     function handleSubmit (e) {
         e.preventDefault();    
 
-           setDisplayedProducts(prevProducts =>
+           setAllProducts(prevProducts =>
                 prevProducts.map(product => {
                 const cartItem = cartProducts.find(item => item.id === product.id);
 

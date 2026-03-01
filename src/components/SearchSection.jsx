@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import { ProductsContext } from "../ProductContext.jsx"
+import { useNavigate } from "react-router-dom";
 
 function SearchSection () {
 
@@ -10,19 +11,25 @@ function handleInput (event) {
     setInputValue (event.target.value)
 }
 
- function searchItem () {
-           const search = inputValue.toLowerCase();
-           
-            const searchedProducts = allProducts.filter(item =>
-                item.title.toLowerCase().includes(search) ||
-                item.category.toLowerCase().includes(search)
-            );
+const navigate = useNavigate();
 
-            setDisplayedProducts(searchedProducts);
-             setShowMoreBtn(false);
-            setInputValue ("")
+function searchItem() {
+    const search = inputValue.toLowerCase();
+    
+    const searchedProducts = allProducts.filter(item =>
+        item.title.toLowerCase().includes(search) ||
+        item.category.toLowerCase().includes(search)
+    );
 
- }
+    if (searchedProducts.length > 0) {
+        // Navigate to the first matched product's detail page
+        navigate(`/products/${searchedProducts[0].id}`);
+    }
+
+    setDisplayedProducts(searchedProducts);
+    setShowMoreBtn(false);
+    setInputValue("");
+}
 
    return (
     <>
