@@ -118,7 +118,7 @@ function ProductsCard () {
                 </p>
              </div>
 
-            {visibleProducts.length !== 0 && !showMoreBtn ?  
+            {visibleProducts.length !== 0 && showMoreBtn ?  
 
                 <div className='md:flex md:justify-center md:mt-5'>
                    {visibleCount < allProducts.length &&  <button onClick={showMore} className='bg-orange-700 rounded text-gray-200/80 w-full md:w-1/2 p-2 mt-3 cursor-pointer hover:bg-gray-800'>View More</button>}
