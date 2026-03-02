@@ -4,12 +4,12 @@ import { FaEye } from "react-icons/fa";
 import { useContext } from 'react';
 import {ProductsContext} from '../ProductContext.jsx'
 import { Link } from 'react-router-dom';
-
+import useCart from './useCart.jsx';
 
 function ProductsCard () {
        const {allProducts,displayedProducts,setDisplayedProducts,
-             outOfStockMsg, setOutOfStockMsg,showMoreBtn, setShowMoreBtn, 
-             setCartProducts, successMesage , setSuccessMessage } = useContext(ProductsContext);
+             outOfStockMsg,showMoreBtn, setShowMoreBtn, 
+             successMesage , setSuccessMessage } = useContext(ProductsContext);
 
         const [visibleCount , setVisibleCount] = useState (4);
         const visibleProducts = displayedProducts.slice(0, visibleCount);      
@@ -19,43 +19,16 @@ function ProductsCard () {
             setVisibleCount (prev => prev + 4);
         }
 
-            function addToCart(productId) {
-
-            const product = allProducts.find(p => p.id === productId);
-
-            if (product.stock === 0) {
-                setOutOfStockMsg(true);
-                return;
-            }
-
-            setCartProducts(prev => {
-                const existing = prev.find(item => item.id === productId);
-
-                if (existing) {
-                    if (existing.quantity >= existing.stock) {
-                        return prev;
-                    }
-
-                    return prev.map(item =>
-                        item.id === productId
-                            ? { ...item, quantity: item.quantity + 1 }
-                            : item
-                    );
-                }
-
-                return [...prev, { ...product, quantity: 1 }];
-            });
-        }
-
+        const {addToCart} = useCart ();
         function handleClick (productId) {
-                    addToCart (productId);
+                    addToCart(productId)
                     setSuccessMessage(true);
             }
 
-    function handleViewAll  (){
-         setDisplayedProducts(allProducts)
-          setShowMoreBtn(true)
-    }
+         function handleViewAll  (){
+            setDisplayedProducts(allProducts)
+            setShowMoreBtn(true)
+        }
 
         return (
             <>

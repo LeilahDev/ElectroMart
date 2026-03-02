@@ -5,18 +5,20 @@ import { FaEye } from "react-icons/fa";
 import { useContext, useState , useRef , useEffect } from 'react';
 import { ProductsContext } from '../ProductContext.jsx';
 import {Link} from 'react-router-dom';
+import useCart from '../components/useCart.jsx';
 
 
 function ProductDetails () {
 
-    const {count,setCount, increase , decrease, cartProducts,
-         outOfStockMsg, setOutOfStockMsg,allProducts,displayedProducts,
-         setCartProducts,successMesage , setSuccessMessage } = useContext(ProductsContext)
+    const {count, increase , decrease, cartProducts,
+         outOfStockMsg,allProducts,displayedProducts,
+         successMesage} = useContext(ProductsContext)
 
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
       const sectionRef = useRef (null);
       const [productsArray, setProductsArray] =  useState([])
+      const {addToCart} = useCart ();
      
      
       const {id} = useParams();
@@ -59,55 +61,6 @@ function ProductDetails () {
                 })
             }
 
-
-                function addToCart(productId) {
-                const product = displayedProducts.find(p => p.id === productId);
-
-                if (!product) return;
-
-                if (product.stock === 0) {
-                    setOutOfStockMsg(true);
-                    return;
-                }
-
-                setCartProducts(prev => {
-                    const existing = prev.find(item => item.id === productId);
-
-                    // If product already exists in cart
-                    if (existing) {
-                    return prev.map(item => {
-                        if (item.id === productId) {
-
-                        // If selected quantity exceeds stock → reset to max stock
-                        const newQuantity = item.quantity + count;
-
-                        return {
-                            ...item,
-                            quantity: newQuantity > product.stock
-                            ? product.stock
-                            : newQuantity
-                        };
-                        }
-
-                        return item;
-                    });
-                    }
-
-                    // If product does not exist in cart yet
-                    return [
-                    ...prev,
-                    {
-                        ...product,
-                        quantity: count > product.stock
-                        ? product.stock
-                        : count
-                    }
-                    ];
-                });
-
-                setSuccessMessage(true);
-                setCount(1);
-                }
 
             useEffect (() => {
                 localStorage.setItem('cartProducts' , JSON.stringify(cartProducts));
