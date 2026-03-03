@@ -15,7 +15,7 @@ import ProductsCategory from "../components/ProductsCategory";
 
                 <div className="relative">
                     {/* Added the relative position */}
-                            <div className="flex flex-col justify-center items-center md:flex-row">
+                        <div className="flex flex-col justify-center items-center md:flex-row">
                             <div className="w-3/4 md:order-2 lg:flex lg:justify-center">
                                 <img src={studioHeadphones} />                  
                             </div>

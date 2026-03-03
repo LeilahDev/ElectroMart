@@ -5,21 +5,34 @@ import { useContext } from 'react';
 import {ProductsContext} from '../ProductContext.jsx'
 import { Link } from 'react-router-dom';
 import useCart from './useCart.jsx';
+import { MyUIcontext } from '../UIContext.jsx';
 
 function ProductsCard () {
-       const {allProducts,displayedProducts,setDisplayedProducts,
-             outOfStockMsg,showMoreBtn, setShowMoreBtn, 
-             successMesage , setSuccessMessage } = useContext(ProductsContext);
+       const {
+              allProducts,
+              displayedProducts,
+              setDisplayedProducts,
+            } = useContext(ProductsContext);
+
+        const {
+              outOfStockMsg,
+              showMoreBtn, 
+              setShowMoreBtn, 
+              successMesage , 
+              setSuccessMessage             
+              } = useContext (MyUIcontext)
 
         const [visibleCount , setVisibleCount] = useState (4);
         const visibleProducts = displayedProducts.slice(0, visibleCount);      
 
         function showMore () {
-            allProducts.slice(0, visibleCount);
+            allProducts.slice(0, visibleCount); // FIND OUT HOW THIS SHOW MORE FUNCTION WORKS COZ LIKE THE VISIBLE COUNT IS ADDED AFTER SLICING
+            // MEANING AT THIS POINT THE COUNT IS STILL 4 HOW COMES MORE ITEMS ARE BEEN SHOWN
             setVisibleCount (prev => prev + 4);
         }
 
         const {addToCart} = useCart ();
+        
         function handleClick (productId) {
                     addToCart(productId)
                     setSuccessMessage(true);

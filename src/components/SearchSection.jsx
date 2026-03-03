@@ -1,10 +1,13 @@
 import { useContext, useState } from "react"
 import { ProductsContext } from "../ProductContext.jsx"
 import { useNavigate } from "react-router-dom";
+import { MyUIcontext } from "../UIContext.jsx";
 
 function SearchSection () {
 
-const {allProducts, setShowMoreBtn,setDisplayedProducts} = useContext(ProductsContext);
+const {allProducts,setDisplayedProducts} = useContext(ProductsContext);
+const {setShowMoreBtn} = useContext (MyUIcontext);
+
 const [inputValue, setInputValue] = useState("");
 
 function handleInput (event) {

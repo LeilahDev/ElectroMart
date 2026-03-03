@@ -9,12 +9,14 @@ import { MdClose } from "react-icons/md";
 import { useContext, useEffect, useState } from "react";
 import {  HiChevronDown, HiChevronUp } from "react-icons/hi";
 import { ProductsContext } from "../ProductContext.jsx";
+import { MyUIcontext } from "../UIContext.jsx";
 
 function NavBar () {
-    const {isOpen , setIsOpen , setDisplayedProducts, allProducts,  setShowMoreBtn} = useContext (ProductsContext)
+    const {setDisplayedProducts, allProducts} = useContext (ProductsContext);
+    const {isOpen, setIsOpen,setShowMoreBtn} = useContext (MyUIcontext);
+
     const [subMenu, setSubMenu] = useState (false);
 
-    
       function closeNavBar () {
             setIsOpen (false)
          }

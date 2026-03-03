@@ -1,10 +1,12 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom"
 import { ProductsContext } from "../ProductContext.jsx";
+import { MyUIcontext } from "../UIContext.jsx";
 
 function ProductsCategory () {
 
-    const {setDisplayedProducts , setShowMoreBtn , allProducts} = useContext (ProductsContext);
+    const {setDisplayedProducts, allProducts} = useContext (ProductsContext);
+    const {setShowMoreBtn } = useContext (MyUIcontext)
 
    function categoryProducts (category) {
 
@@ -13,7 +15,6 @@ function ProductsCategory () {
         }
         else {
             const categoryProducts = allProducts.filter(item =>
-                item.title.toLowerCase().includes(category) ||
                 item.category.toLowerCase().includes(category)
             );
         

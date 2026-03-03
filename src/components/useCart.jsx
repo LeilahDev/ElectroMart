@@ -1,9 +1,13 @@
 import { useContext } from "react";
 import { ProductsContext } from "../ProductContext.jsx";
+import { MyCartContext } from "../CartContext.jsx";
+import { MyUIcontext } from "../UIContext.jsx";
 
 function useCart () {
 
-    const {setCartProducts, setOutOfStockMsg ,setCount ,setSuccessMessage, displayedProducts, count} = useContext (ProductsContext)
+    const { displayedProducts} = useContext (ProductsContext);
+    const {setCartProducts, count,setCount} = useContext (MyCartContext);
+    const {setOutOfStockMsg, setSuccessMessage} = useContext (MyUIcontext);
 
      function addToCart(productId) {
                             const product = displayedProducts.find(p => p.id === productId);

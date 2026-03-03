@@ -1,9 +1,11 @@
 import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
-import { ProductsContext } from "../ProductContext.jsx";
+import { MyCartContext } from "../CartContext.jsx";
+
+
  function SingleCartItem ({product , handleDelete}) {
 
-    const {setCartProducts} = useContext(ProductsContext)
+    const {setCartProducts} = useContext(MyCartContext);
     
             function increase () {
                 setCartProducts(prev =>

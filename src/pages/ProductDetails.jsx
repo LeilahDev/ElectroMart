@@ -6,13 +6,28 @@ import { useContext, useState , useRef , useEffect } from 'react';
 import { ProductsContext } from '../ProductContext.jsx';
 import {Link} from 'react-router-dom';
 import useCart from '../components/useCart.jsx';
+import { MyCartContext } from '../CartContext.jsx';
+import { MyUIcontext } from '../UIContext.jsx';
 
 
 function ProductDetails () {
 
-    const {count, increase , decrease, cartProducts,
-         outOfStockMsg,allProducts,displayedProducts,
-         successMesage} = useContext(ProductsContext)
+    const {
+           allProducts,
+           displayedProducts,           
+        } = useContext(ProductsContext)
+    
+    const {
+           count,
+           increase, 
+           decrease, 
+           cartProducts,
+          } = useContext (MyCartContext);
+
+    const {
+            outOfStockMsg,
+            successMesage
+          } = useContext (MyUIcontext)
 
       const [collapse1 , setCollapse1] = useState(false);
       const [collapse2 , setCollapse2] = useState(false);
@@ -36,23 +51,23 @@ function ProductDetails () {
 
        }, [product, allProducts])
 
-         function description () {
-            if(!collapse1) {
-                setCollapse1 (true);
-                 setCollapse2 (false);
-            }else if(collapse1){
-                setCollapse1 (false)
-            }
-         }
+         function handleCollapse (collapseValue) {
 
-         function specification () {
-            if(!collapse2) {
-                setCollapse2 (true);
-                setCollapse1 (false);
-            }else if(collapse2){
-                setCollapse2 (false);
-                
-            }
+            if(collapseValue === "description"){
+                if(!collapse1) {      
+                    setCollapse1 (true);
+                    setCollapse2 (false);
+                }else if(collapse1){
+                    setCollapse1 (false)
+                }
+            }else if(collapseValue === "specification"){
+                if(!collapse2) {
+                    setCollapse2 (true);
+                    setCollapse1 (false);
+                }else if(collapse2){
+                    setCollapse2 (false);
+                }
+            } 
          }
 
            function handleScroll () {
@@ -60,7 +75,6 @@ function ProductDetails () {
                 behavior: "smooth"
                 })
             }
-
 
             useEffect (() => {
                 localStorage.setItem('cartProducts' , JSON.stringify(cartProducts));
@@ -86,13 +100,13 @@ function ProductDetails () {
                             <p className='border-b py-2 mb-4 border-gray-500/50 text-gray-700'>Ksh. {product.price}</p>
                             
                             
-                                <p className='text-gray-700 cursor-pointer' onClick={description}>+ Description</p>
+                                <p className='text-gray-700 cursor-pointer' onClick={() => handleCollapse ("description")}>+ Description</p>
                                 {collapse1 && 
                                     <p className='text-gray-700 pl-4 pt-1 text-sm'>{product.description}</p>
                                 }
                                 
                                 <div className='border-b border-t pb-4 mb-4 mt-4 pt-4 border-gray-500/50 text-gray-700 cursor-pointer'>
-                                        <p  onClick={specification}>+ Specification</p>
+                                        <p  onClick={() => handleCollapse ("specification")}>+ Specification</p>
 
                                         {collapse2 && 
                                                     <div className='text-gray-700 px-4 pt-1 text-sm flex justify-between'>

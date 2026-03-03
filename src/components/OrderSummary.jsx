@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { ProductsContext } from "../ProductContext.jsx";
+import { MyCartContext } from "../CartContext.jsx";
 
 
 function OrderSummary () {
-    const {total} = useContext (ProductsContext);
+    const {total} = useContext (MyCartContext);
 
     const [cartProducts] = useState(() => {
            const savedCart = localStorage.getItem("cartProducts");

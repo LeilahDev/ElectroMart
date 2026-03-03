@@ -1,5 +1,4 @@
 import landingPage1 from "../assets/landingPage1.png";
-import landingPage2 from "../assets/landingPage2.png";
 import whyUs from "../assets/whyUs.jpg"
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { HiCheckCircle } from "react-icons/hi2"
@@ -28,7 +27,7 @@ function LandingPage () {
   }
 
   function next () {
-       if(activeIndex < images.length-1){
+       if(activeIndex < images.length-1){ 
         setDirection ("next")
         setActiveIndex (prev => prev + 1)
        }
@@ -75,7 +74,7 @@ function LandingPage () {
                <div className="flex flex-col gap-2 px-2 sm:px-8 md:hidden">
                 <div className="relative w-full h-50 sm:h-65 overflow-hidden top-1">
                         {images.map((img, index) => {
-                          const isActive = index === activeIndex;
+                          const isActive = index === activeIndex; 
                           return (
                             <div key={index}>
                             <img
@@ -85,7 +84,7 @@ function LandingPage () {
                                 transition-transform duration-500 ease-in-out
                                 ${isActive
                                   ? "translate-x-0 "
-                                  : direction === "next"
+                                  : direction === "next" 
                                   ? "translate-x-full "
                                   : "-translate-x-full "
                                 }

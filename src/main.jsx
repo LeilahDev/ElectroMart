@@ -1,10 +1,20 @@
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import { BrowserRouter } from 'react-router-dom'
-import ProductContext from './ProductContext.jsx'
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import { BrowserRouter } from "react-router-dom";
 
-createRoot(document.getElementById('root')).render(
+import App from "./App.jsx";
+import ProductContext from "./ProductContext.jsx";  // Products provider
+import CartContext from "./CartContext.jsx";        // Cart provider
+import UIcontext from "./UIContext.jsx";            // UI provider
+
+createRoot(document.getElementById("root")).render(
   <BrowserRouter>
-    <ProductContext />
+    <ProductContext>
+      <CartContext>
+        <UIcontext>
+          <App />
+        </UIcontext>
+      </CartContext>
+    </ProductContext>
   </BrowserRouter>
-)
+);
